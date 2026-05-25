@@ -15,6 +15,11 @@ import {
   Menu,
   X,
   LogOut,
+  Upload,
+  Download,
+  Plus,
+  Edit,
+  Eye,
 } from "lucide-react";
 
 const menuItems = [
@@ -38,26 +43,57 @@ const menuItems = [
 ];
 
 const summaryCards = [
-  { label: "Total Donasi", value: "Rp780 Juta" },
-  { label: "Donatur", value: "2.430" },
-  { label: "Program Aktif", value: "12" },
-  { label: "Anak Asuh", value: "86" },
-  { label: "Progress Pembangunan", value: "68%" },
-  { label: "Artikel Dakwah", value: "12" },
-  { label: "Video Kajian", value: "24" },
-  { label: "Laporan Terbit", value: "8" },
+  { label: "Total Donasi", value: "Rp780 Juta", note: "Dana terkumpul" },
+  { label: "Donatur", value: "2.430", note: "Total pendukung" },
+  { label: "Program Aktif", value: "12", note: "Donasi & wakaf" },
+  { label: "Anak Asuh", value: "86", note: "Dukungan aktif" },
+  { label: "Progress Pembangunan", value: "68%", note: "Progress fisik" },
+  { label: "Artikel Dakwah", value: "12", note: "Konten terbit" },
+  { label: "Video Kajian", value: "24", note: "Video tersedia" },
+  { label: "Laporan Terbit", value: "8", note: "Laporan publish" },
 ];
 
-const donations = [
+const latestDonations = [
   ["Hamba Allah", "Pembangunan Pesantren", "Rp1.000.000", "Berhasil"],
   ["Abdullah", "Wakaf Al-Qur’an", "Rp250.000", "Berhasil"],
   ["Ummu Maryam", "Orang Tua Asuh", "Rp300.000", "Berhasil"],
   ["Hamba Allah", "Program Makan Santri", "Rp150.000", "Berhasil"],
 ];
 
+const genericRows = [
+  ["Pembangunan Pesantren", "Donasi & Wakaf", "Aktif", "Edit"],
+  ["Wakaf Al-Qur’an", "Wakaf", "Aktif", "Edit"],
+  ["Program Makan Santri", "Sosial", "Aktif", "Edit"],
+  ["Artikel Dakwah", "Dakwah Digital", "Draft", "Edit"],
+  ["Laporan Bulanan", "Laporan", "Published", "Lihat"],
+];
+
 function goTo(path: string) {
-  window.history.pushState({}, "", path);
-  window.dispatchEvent(new PopStateEvent("popstate"));
+  window.location.href = path;
+}
+
+function dummyAlert() {
+  alert("Fitur ini akan aktif setelah integrasi backend.");
+}
+
+function getTitle(pathname: string) {
+  if (pathname.includes("program-donasi")) return "Program Donasi";
+  if (pathname.includes("donatur")) return "Data Donatur";
+  if (pathname.includes("orang-tua-asuh")) return "Orang Tua Asuh";
+  if (pathname.includes("anak-asuh")) return "Anak Asuh";
+  if (pathname.includes("progress")) return "Progress Pembangunan";
+  if (pathname.includes("galeri")) return "Galeri";
+  if (pathname.includes("asatidzah")) return "Asatidzah";
+  if (pathname.includes("kajian-youtube")) return "Kajian YouTube";
+  if (pathname.includes("jadwal-kajian")) return "Jadwal Kajian";
+  if (pathname.includes("materi-download")) return "Materi Download";
+  if (pathname.includes("poster-dakwah")) return "Poster Dakwah";
+  if (pathname.includes("laporan-keuangan")) return "Laporan Keuangan";
+  if (pathname.includes("laporan-program")) return "Laporan Program";
+  if (pathname.includes("laporan")) return "Pusat Laporan";
+  if (pathname.includes("settings")) return "Settings Website";
+  if (pathname.includes("dakwah")) return "Dakwah Digital";
+  return "Dashboard";
 }
 
 function AdminLogin() {
@@ -81,9 +117,11 @@ function AdminLogin() {
             alt="Logo Yayasan Nurul Quran"
             className="mx-auto h-24 w-auto object-contain"
           />
+
           <h1 className="mt-6 text-2xl font-black text-slate-900">
             Admin Yayasan Nurul Quran
           </h1>
+
           <p className="mt-2 text-sm leading-relaxed text-slate-500">
             Masuk untuk mengelola konten website, program, laporan, dan dakwah digital.
           </p>
@@ -132,77 +170,35 @@ function AdminLogin() {
   );
 }
 
-function getTitle(pathname: string) {
-  if (pathname.includes("program-donasi")) return "Program Donasi";
-  if (pathname.includes("donatur")) return "Data Donatur";
-  if (pathname.includes("orang-tua-asuh")) return "Orang Tua Asuh";
-  if (pathname.includes("anak-asuh")) return "Anak Asuh";
-  if (pathname.includes("progress")) return "Progress Pembangunan";
-  if (pathname.includes("galeri")) return "Galeri";
-  if (pathname.includes("asatidzah")) return "Asatidzah";
-  if (pathname.includes("kajian-youtube")) return "Kajian YouTube";
-  if (pathname.includes("jadwal-kajian")) return "Jadwal Kajian";
-  if (pathname.includes("materi-download")) return "Materi Download";
-  if (pathname.includes("poster-dakwah")) return "Poster Dakwah";
-  if (pathname.includes("laporan-keuangan")) return "Laporan Keuangan";
-  if (pathname.includes("laporan-program")) return "Laporan Program";
-  if (pathname.includes("laporan")) return "Pusat Laporan";
-  if (pathname.includes("settings")) return "Settings";
-  if (pathname.includes("dakwah")) return "Dakwah Digital";
-  return "Dashboard";
-}
-
-function GenericAdminPage({ title }: { title: string }) {
-  const rows = [
-    ["Pembangunan Pesantren", "Donasi & Wakaf", "Aktif", "Edit"],
-    ["Wakaf Al-Qur’an", "Wakaf", "Aktif", "Edit"],
-    ["Program Makan Santri", "Sosial", "Aktif", "Edit"],
-    ["Artikel Dakwah", "Dakwah Digital", "Draft", "Edit"],
-    ["Laporan Bulanan", "Laporan", "Published", "Lihat"],
-  ];
-
+function ActionButtons() {
   return (
-    <div>
-      <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
-        <div>
-          <h1 className="text-3xl font-black text-slate-900">{title}</h1>
-          <p className="mt-1 text-slate-500">
-            Halaman dummy untuk menggambarkan fitur admin versi produksi.
-          </p>
-        </div>
+    <div className="flex flex-wrap gap-2">
+      <button
+        type="button"
+        onClick={dummyAlert}
+        className="inline-flex items-center gap-2 rounded-xl bg-cyan-700 px-4 py-2 text-sm font-bold text-white"
+      >
+        <Plus className="h-4 w-4" />
+        Tambah Data
+      </button>
 
-        <button
-          type="button"
-          onClick={() => alert("Fitur ini akan aktif setelah integrasi backend.")}
-          className="rounded-xl bg-cyan-700 px-5 py-3 font-bold text-white shadow"
-        >
-          Tambah Data
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={dummyAlert}
+        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700"
+      >
+        <Upload className="h-4 w-4" />
+        Upload
+      </button>
 
-      <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">
-        <table className="w-full min-w-[700px] text-left text-sm">
-          <thead className="bg-slate-50 text-slate-500">
-            <tr>
-              <th className="px-5 py-4">Nama</th>
-              <th className="px-5 py-4">Kategori</th>
-              <th className="px-5 py-4">Status</th>
-              <th className="px-5 py-4">Aksi</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {rows.map((row) => (
-              <tr key={row[0]}>
-                {row.map((cell, idx) => (
-                  <td key={idx} className="px-5 py-4 font-medium text-slate-700">
-                    {cell}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <button
+        type="button"
+        onClick={dummyAlert}
+        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700"
+      >
+        <Download className="h-4 w-4" />
+        Export
+      </button>
     </div>
   );
 }
@@ -221,9 +217,13 @@ function DashboardHome() {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {summaryCards.map((card) => (
-          <div key={card.label} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+          <div
+            key={card.label}
+            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100"
+          >
             <p className="text-sm font-bold text-slate-500">{card.label}</p>
             <p className="mt-3 text-2xl font-black text-slate-900">{card.value}</p>
+            <p className="mt-1 text-xs font-medium text-cyan-700">{card.note}</p>
           </div>
         ))}
       </div>
@@ -259,12 +259,10 @@ function DashboardHome() {
         </div>
 
         <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
-          <h2 className="text-xl font-black text-slate-900">
-            Donasi Terbaru
-          </h2>
+          <h2 className="text-xl font-black text-slate-900">Donasi Terbaru</h2>
 
           <div className="mt-5 space-y-4">
-            {donations.map((item) => (
+            {latestDonations.map((item) => (
               <div key={item.join("-")} className="rounded-xl bg-slate-50 p-4">
                 <div className="flex justify-between gap-4">
                   <div>
@@ -281,6 +279,97 @@ function DashboardHome() {
           </div>
         </div>
       </div>
+
+      <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+        <h2 className="text-xl font-black text-slate-900">Quick Actions</h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            "Tambah Program Donasi",
+            "Upload Progress",
+            "Tambah Galeri",
+            "Tambah Artikel Dakwah",
+            "Tambah Video Kajian",
+            "Buat Laporan",
+          ].map((item) => (
+            <button
+              key={item}
+              type="button"
+              onClick={dummyAlert}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-left font-bold text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-700"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GenericAdminPage({ title }: { title: string }) {
+  return (
+    <div>
+      <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div>
+          <h1 className="text-3xl font-black text-slate-900">{title}</h1>
+          <p className="mt-1 text-slate-500">
+            Halaman dummy untuk menggambarkan fitur admin versi produksi.
+          </p>
+        </div>
+
+        <ActionButtons />
+      </div>
+
+      <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">
+        <table className="w-full min-w-[760px] text-left text-sm">
+          <thead className="bg-slate-50 text-slate-500">
+            <tr>
+              <th className="px-5 py-4">Nama</th>
+              <th className="px-5 py-4">Kategori</th>
+              <th className="px-5 py-4">Status</th>
+              <th className="px-5 py-4">Aksi</th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-slate-100">
+            {genericRows.map((row) => (
+              <tr key={row[0]}>
+                <td className="px-5 py-4 font-bold text-slate-800">{row[0]}</td>
+                <td className="px-5 py-4 text-slate-600">{row[1]}</td>
+                <td className="px-5 py-4">
+                  <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">
+                    {row[2]}
+                  </span>
+                </td>
+                <td className="px-5 py-4">
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={dummyAlert}
+                      className="rounded-lg bg-slate-100 p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-700"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={dummyAlert}
+                      className="rounded-lg bg-slate-100 p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-700"
+                    >
+                      <Edit className="h-4 w-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 rounded-2xl bg-cyan-50 p-5 text-sm leading-relaxed text-cyan-900">
+        Semua tombol pada halaman ini masih simulasi. Pada versi produksi,
+        fitur tambah, edit, upload, export, publish, dan hapus akan tersambung
+        dengan backend/database.
+      </div>
     </div>
   );
 }
@@ -293,11 +382,13 @@ export default function AdminDashboard() {
     return <AdminLogin />;
   }
 
-  const activePath = pathname === "/admin" ? "/admin/dashboard" : pathname;
+  const activePath =
+    pathname === "/admin" || pathname === "/admin/" ? "/admin/dashboard" : pathname;
+
   const title = getTitle(activePath);
 
   const renderContent = () => {
-    if (activePath === "/admin/dashboard" || activePath === "/admin") {
+    if (activePath === "/admin/dashboard") {
       return <DashboardHome />;
     }
 
@@ -306,8 +397,8 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-100">
-      <div className="lg:hidden flex items-center justify-between bg-slate-950 px-4 py-4 text-white">
-        <button onClick={() => setSidebarOpen(true)}>
+      <div className="flex items-center justify-between bg-slate-950 px-4 py-4 text-white lg:hidden">
+        <button type="button" onClick={() => setSidebarOpen(true)}>
           <Menu className="h-6 w-6" />
         </button>
         <p className="font-bold">Admin Yayasan</p>
@@ -323,7 +414,12 @@ export default function AdminDashboard() {
             <p className="text-sm text-cyan-200">Admin Panel</p>
             <h2 className="font-black">Yayasan Nurul Quran</h2>
           </div>
-          <button className="lg:hidden" onClick={() => setSidebarOpen(false)}>
+
+          <button
+            type="button"
+            className="lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          >
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -337,10 +433,7 @@ export default function AdminDashboard() {
               <button
                 key={item.path}
                 type="button"
-                onClick={() => {
-                  goTo(item.path);
-                  setSidebarOpen(false);
-                }}
+                onClick={() => goTo(item.path)}
                 className={`mb-1 flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition ${
                   active
                     ? "bg-cyan-700 text-white"

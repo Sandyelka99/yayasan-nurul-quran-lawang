@@ -31,7 +31,7 @@ function getViewFromPath(pathname: string) {
   if (pathname === "/progress-pembangunan") return "progress";
   if (pathname === "/galeri") return "gallery";
   if (pathname === "/kontak" || pathname === "/contact") return "contact";
-  if (pathname === "/admin") return "admin";
+  if (pathname.startsWith("/admin")) return "admin";
   if (pathname === "/dakwah") return "dakwah";
   return "home";
 }
