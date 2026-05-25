@@ -35,27 +35,24 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex items-center justify-between py-3 md:py-4">
           
           {/* Brand Logo Identity */}
-          <div 
-            onClick={() => onNavigate("home")} 
-            className="flex items-center gap-3 cursor-pointer group select-none"
+          <a 
+            href="/" 
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate("home");
+            }}
+            className="flex items-center gap-3 cursor-pointer select-none"
             id="brand-logo"
           >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-teal-600 to-brand-teal-500 text-white shadow-md shadow-brand-teal-500/20 font-extrabold text-lg tracking-tighter">
-              NQ
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-brand-gold-500 rounded-full border-2 border-white" />
-            </div>
-            <div>
-              <span className="block font-extrabold tracking-tight text-brand-dark-900 text-base leading-none group-hover:text-brand-teal-500 transition-colors">
-                Nurul Qur'an
-              </span>
-              <span className="block text-[8px] tracking-widest font-bold text-brand-teal-500 mt-1 uppercase">
-                Mendidik generasi qurani sejak dini
-              </span>
-            </div>
-          </div>
+            <img
+              src="/logo-nurul-quran.png"
+              alt="Logo Yayasan Nurul Quran Lawang Malang"
+              className="h-14 w-auto object-contain md:h-16 lg:h-20"
+            />
+          </a>
 
           {/* Desktop Nav Items */}
           <nav className="hidden lg:flex items-center gap-1.5">
