@@ -34,8 +34,11 @@ interface Teacher {
   name: string;
   role: string;
   unit: string;
+  education: string;
   focus: string;
-  bio: string;
+  experience: string;
+  competence: string;
+  status: string;
   initials: string;
 }
 
@@ -106,8 +109,11 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       name: "Ustadzah Aisyah",
       role: "Tahfidz & Murajaah",
       unit: "Rumah Tahfizz",
-      focus: "Hafalan Al-Qur'an intensif, murojaah mandiri terstruktur, pembinaan adab thalabul ilmi.",
-      bio: "Berkomitmen penuh membina hafalan santri dengan setoran bertahap yang disiplin namun dipenuhi bimbingan penuh kelembutan.",
+      education: "S1 Pendidikan Agama Islam",
+      focus: "Hafalan Al-Qur’an, murajaah terstruktur, pembinaan adab, dan pendampingan bacaan santri.",
+      experience: "Berpengalaman dalam pembinaan hafalan Al-Qur’an, murajaah terstruktur, dan pendampingan bacaan santri.",
+      competence: "Tahfidz, murajaah, adab santri, pendampingan tilawah.",
+      status: "Pembimbing Aktif",
       initials: "UA"
     },
     {
@@ -115,8 +121,11 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       name: "Ustadzah Maryam",
       role: "Pendidikan Anak Usia Dini",
       unit: "RUTABA",
-      focus: "Pondasi pengenalan huruf hijaiyah, adab santun harian balita, metode bermain ceria Islami.",
-      bio: "Memiliki keahlian khusus dalam membina hati dan atensi anak balita agar menyukai keindahan bunyi ayat suci Al-Qur’an.",
+      education: "Pendidikan Anak Usia Dini",
+      focus: "Pengenalan huruf hijaiyah, doa harian, adab santun, dan pembelajaran Islami yang ramah anak.",
+      experience: "Berpengalaman dalam pembelajaran anak usia dini melalui pendekatan bermain, doa harian, dan pengenalan adab Islami.",
+      competence: "Pembelajaran anak usia dini, hijaiyah dasar, doa harian, aktivitas motorik Islami.",
+      status: "Pembimbing Aktif",
       initials: "UM"
     },
     {
@@ -124,17 +133,23 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       name: "Ustadzah Khadijah",
       role: "Pembelajaran Dasar",
       unit: "Rumah Belajar",
-      focus: "Sinergi bimbingan akademik sekolah dasar, calistung, pengokohan karakter akhlaqul karimah.",
-      bio: "Membantu santri mengimbangi pelajaran umum sekolah dengan internalisasi kecintaan kepada adab sunnah sehari-hari.",
+      education: "Pendidikan Dasar / Madrasah Ibtidaiyah",
+      focus: "Pendampingan akademik dasar, calistung, literasi, serta penguatan karakter dan adab harian.",
+      experience: "Berpengalaman mendampingi anak dalam calistung, literasi dasar, dan penguatan karakter belajar.",
+      competence: "Calistung, literasi dasar, pendampingan akademik, pembinaan adab belajar.",
+      status: "Pembimbing Aktif",
       initials: "UK"
     },
     {
       id: 4,
       name: "Ustadzah Hafshah",
-      role: "Tahsin & Bacaan Al-Qur'an",
+      role: "Tahsin & Bacaan Al-Qur’an",
       unit: "Rumah Tahfizz",
-      focus: "Bimbingan makharijul huruf, tajwid dasar bersertifikat, murattal tartil sejuk didengar.",
-      bio: "Fokus mendalami pembenaran tajwid dasar santri agar lancar melantunkan mushaf dengan lisan yang fashih dan tartil.",
+      education: "Tahsin & Tahfidz Al-Qur’an",
+      focus: "Perbaikan bacaan Al-Qur’an, makharijul huruf, tajwid dasar, dan pembiasaan tilawah.",
+      experience: "Berpengalaman dalam perbaikan bacaan Al-Qur’an, makharijul huruf, tajwid dasar, dan pembiasaan tilawah.",
+      competence: "Tahsin, tajwid dasar, makharijul huruf, tilawah anak.",
+      status: "Pembimbing Aktif",
       initials: "UH"
     },
     {
@@ -142,27 +157,24 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       name: "Ustadzah Zainab",
       role: "Adab & Pembinaan Harian",
       unit: "Rumah Belajar",
-      focus: "Disiplin pembiasaan doa harian, tata cara shalat sunnah khusyu, etika bermuamalah santri.",
-      bio: "Memfokuskan pengabdiannya pada pendampingan moral santri agar tangguh dan bernilaikan santun mulia dalam bermasyarakat.",
+      education: "Pendidikan Islam & Pembinaan Adab",
+      focus: "Pembiasaan doa harian, adab belajar, tata cara shalat, dan etika bermuamalah.",
+      experience: "Berpengalaman dalam pembiasaan doa harian, adab belajar, tata cara shalat, dan etika bermuamalah.",
+      competence: "Pembinaan adab, doa harian, praktik ibadah, karakter santri.",
+      status: "Pembimbing Aktif",
       initials: "UZ"
     },
     {
       id: 6,
       name: "Ustadzah Sumayyah",
-      role: "Program Anak",
+      role: "Pembinaan Anak",
       unit: "RUTABA",
-      focus: "Hafalan jus amma ringkas balita, tontonan kisah nabi teladan, kreativitas motorik islami.",
-      bio: "Memandu santri cilik RUTABA agar selalu merindukan suasana masjid dan asyik berkegiatan positif bersama Al-Qur’an.",
+      education: "Pendidikan Anak Usia Dini & Tahfidz Anak",
+      focus: "Hafalan surat pendek, kisah nabi, doa harian, dan aktivitas motorik Islami yang menyenangkan.",
+      experience: "Berpengalaman membimbing anak usia dini melalui hafalan surat pendek, kisah nabi, doa harian, dan aktivitas motorik Islami.",
+      competence: "Hafalan surat pendek, kisah nabi, doa harian, aktivitas bermain Islami.",
+      status: "Pembimbing Aktif",
       initials: "US"
-    },
-    {
-      id: 7,
-      name: "Ustadzah Fatimah",
-      role: "Koordinasi Program",
-      unit: "Yayasan",
-      focus: "Penyusunan modul ajar asatidzah, rapat evaluasi santri berkala, komunikasi aktif wali murid.",
-      bio: "Mengkoordinasikan setiap program akademis dan operasional agar tetap sejalan dengan pedoman amanah sunnah yayasan.",
-      initials: "UF"
     }
   ];
 
@@ -459,59 +471,92 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
       {/* SECTION 6: PROFIL ASATIDZAH */}
       <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center max-w-xl mx-auto mb-16">
-          <span className="text-[10px] font-extrabold tracking-widest text-brand-teal-600 uppercase bg-brand-teal-100 px-3 py-1 rounded-full flex items-center gap-1.5 w-max mx-auto">
-            <UsersRound className="h-4 w-4" />
-            STAFF AJAR MUTAKHIR
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-[10px] font-extrabold tracking-widest text-[#d97706] uppercase bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5 w-max mx-auto">
+            <UsersRound className="h-4 w-4 text-[#d97706]" />
+            TIM PENDIDIK NURUL QURAN
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-dark-900 mt-3 tracking-tight">Profil Ustadzat Nurul Quran</h2>
-          <p className="mt-2 text-xs text-gray-400 font-semibold">Tujuh asatidzah berkomitmen tinggi yang mengawal kualitas tarbiyah adab.</p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark-900 mt-4 tracking-tight">Profil Asatidzah</h2>
+          <p className="mt-4 text-xs sm:text-sm text-gray-500 font-bold leading-relaxed max-w-2xl mx-auto">
+            Tim pengajar yang berdedikasi dalam membimbing santri mengenal Al-Qur’an, adab, dan ilmu dasar keislaman sejak dini.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {teachers.map((t) => (
-            <div 
-              key={t.id} 
-              onClick={() => setSelectedTeacher(t)}
-              className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-150 hover:border-brand-teal-300 hover:shadow-md transition-all flex flex-col justify-between p-6 cursor-pointer group"
-            >
-              <div className="space-y-4">
-                
-                {/* Clean Initial-Based Avatar */}
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-teal-50 group-hover:bg-brand-teal-100 transition-colors border border-brand-teal-100/60 flex items-center justify-center text-brand-teal-700 font-bold tracking-tight text-sm shrink-0 font-mono">
-                    {t.initials}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {teachers.map((t) => {
+            const getUnitBadgeColor = (unit: string) => {
+              const norm = unit.toLowerCase();
+              if (norm.includes("tahfizz") || norm.includes("tahfidz")) {
+                return "text-brand-teal-700 bg-brand-teal-50 border-brand-teal-100";
+              }
+              if (norm.includes("rutaba")) {
+                return "text-rose-700 bg-rose-50 border-rose-100";
+              }
+              if (norm.includes("belajar")) {
+                return "text-indigo-700 bg-indigo-50 border-indigo-100";
+              }
+              return "text-gray-700 bg-gray-50 border-gray-100";
+            };
+
+            return (
+              <div 
+                key={t.id} 
+                onClick={() => setSelectedTeacher(t)}
+                className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-150 hover:border-brand-teal-300 hover:shadow-md transition-all flex flex-col justify-between p-6 cursor-pointer group"
+              >
+                <div className="space-y-4">
+                  
+                  {/* Clean Initial-Based Avatar */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-brand-teal-50 group-hover:bg-brand-teal-100 transition-colors border border-brand-teal-100/60 flex items-center justify-center text-brand-teal-700 font-bold tracking-tight text-sm shrink-0 font-mono">
+                      {t.initials}
+                    </div>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-extrabold text-brand-dark-900 leading-tight group-hover:text-brand-teal-700 transition-colors">
+                        {t.name}
+                      </h4>
+                      <span className="text-[10px] font-bold text-gray-400 block mt-0.5">{t.role}</span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-extrabold text-brand-dark-900 leading-tight group-hover:text-brand-teal-700 transition-colors">
-                      {t.name}
-                    </h4>
-                    <span className="text-[10px] font-bold text-gray-400 block mt-0.5">{t.role}</span>
+
+                  <div className="space-y-3 pt-1">
+                    <div>
+                      <span className={`inline-block text-[9px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider border ${getUnitBadgeColor(t.unit)}`}>
+                        {t.unit}
+                      </span>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <span className="font-extrabold text-[#0e7490] block text-[9px] uppercase tracking-wider">Pendidikan:</span>
+                      <p className="text-[11px] text-gray-700 font-bold">
+                        {t.education}
+                      </p>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <span className="font-extrabold text-brand-dark-900 block text-[9px] uppercase tracking-wider">Fokus Pembinaan:</span>
+                      <p className="text-[11px] text-gray-500 font-semibold leading-relaxed line-clamp-2">
+                        {t.focus}
+                      </p>
+                    </div>
                   </div>
+
                 </div>
 
-                <div className="space-y-1 pt-1">
-                  <span className="inline-block text-[9px] font-extrabold text-brand-teal-600 bg-brand-teal-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
-                    {t.unit}
+                <div className="pt-4 border-t border-gray-50 flex items-center justify-between mt-4">
+                  <div className="flex items-center gap-1.5 text-[9px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Pembimbing Aktif
+                  </div>
+                  <span className="text-[10px] font-extrabold text-brand-teal-600 group-hover:text-brand-teal-700 transition-colors flex items-center gap-0.5">
+                    Lihat Profil
+                    <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                   </span>
-                  <p className="text-[11px] text-gray-500 font-semibold leading-relaxed pt-2">
-                    <span className="font-extrabold text-brand-dark-900 block text-[9px] uppercase tracking-wider mb-0.5">Fokus Pembinaan:</span>
-                    {t.focus}
-                  </p>
                 </div>
 
               </div>
-
-              <div className="pt-4 border-t border-gray-50 flex items-center justify-between mt-4">
-                <span className="text-[9px] font-bold text-gray-400 tracking-wide uppercase">Audit Ustadz OK</span>
-                <span className="text-[10px] font-bold text-brand-teal-600 group-hover:underline transition-all flex items-center gap-0.5">
-                  Lihat Profil
-                  <ChevronRight className="h-3 w-3" />
-                </span>
-              </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -618,7 +663,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedTeacher(null)}
-              className="fixed inset-0 bg-brand-dark-950/85 backdrop-blur-md cursor-zoom-out"
+              className="fixed inset-0 bg-brand-dark-950/80 backdrop-blur-md cursor-zoom-out"
             />
             
             <motion.div 
@@ -650,27 +695,64 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
                 </button>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-gray-50 text-xs sm:text-sm">
+              <div className="space-y-4 pt-4 border-t border-gray-100 text-xs sm:text-sm max-h-[50vh] overflow-y-auto scrollbar-thin pr-1">
                 
-                <div className="p-3 bg-gray-50 rounded-xl space-y-1">
-                  <span className="block text-[8px] font-bold text-gray-400 uppercase tracking-widest">Penugasan Unit</span>
-                  <span className="block font-bold text-brand-dark-900 uppercase text-[10px] tracking-wide">
-                    {selectedTeacher.unit}
+                {/* Penugasan Unit & Status */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-1">
+                    <span className="block text-[9px] font-extrabold text-gray-400 uppercase tracking-widest">Unit Mengajar</span>
+                    <span className={`inline-block font-extrabold text-[10px] tracking-wide rounded px-2.5 py-0.5 border ${
+                      selectedTeacher.unit.toLowerCase().includes("tahfizz") ? "text-brand-teal-700 bg-brand-teal-50 border-brand-teal-100" :
+                      selectedTeacher.unit.toLowerCase().includes("rutaba") ? "text-rose-700 bg-rose-50 border-rose-100" :
+                      "text-indigo-700 bg-indigo-50 border-indigo-100"
+                    }`}>
+                      {selectedTeacher.unit}
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-1 flex flex-col justify-center">
+                    <span className="block text-[9px] font-extrabold text-gray-400 uppercase tracking-widest text-left">Status Pembimbing</span>
+                    <span className="inline-flex items-center gap-1.5 text-[9px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-100 w-max px-2.5 py-0.5 rounded-lg uppercase tracking-wide">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      {selectedTeacher.status}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Profil Pendidikan */}
+                <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-1">
+                  <span className="block text-[9px] font-extrabold text-[#0e7490] uppercase tracking-widest">Pendidikan</span>
+                  <span className="block font-bold text-gray-800 text-[11px] sm:text-xs">
+                    {selectedTeacher.education}
                   </span>
                 </div>
 
-                <div className="p-3 bg-gray-50 rounded-xl space-y-1">
-                  <span className="block text-[8px] font-bold text-gray-400 uppercase tracking-widest">Fokus Pengajaran</span>
-                  <span className="block font-semibold text-gray-500 text-[11px] leading-relaxed">
+                {/* Fokus Pembinaan */}
+                <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-1">
+                  <span className="block text-[9px] font-extrabold text-brand-dark-900 uppercase tracking-widest">Fokus Pembinaan</span>
+                  <p className="font-semibold text-gray-600 leading-relaxed text-[11px] sm:text-xs">
                     {selectedTeacher.focus}
-                  </span>
+                  </p>
                 </div>
 
-                <div className="space-y-1">
-                  <span className="block text-[8px] font-bold text-gray-400 uppercase tracking-widest">Biografi Singkat</span>
-                  <p className="font-semibold text-gray-500 leading-relaxed text-[11px] pt-1">
-                    {selectedTeacher.bio}
+                {/* Pengalaman Mengajar */}
+                <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-1">
+                  <span className="block text-[9px] font-extrabold text-brand-dark-900 uppercase tracking-widest">Pengalaman Mengajar</span>
+                  <p className="font-semibold text-gray-600 leading-relaxed text-[11px] sm:text-xs">
+                    {selectedTeacher.experience}
                   </p>
+                </div>
+
+                {/* Kompetensi */}
+                <div className="p-3 bg-gray-50/70 border border-gray-100 rounded-2xl space-y-2">
+                  <span className="block text-[9px] font-extrabold text-gray-400 uppercase tracking-widest">Kompetensi</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedTeacher.competence.split(",").map((comp, idx) => (
+                      <span key={idx} className="inline-flex items-center text-[10px] font-extrabold text-brand-teal-700 bg-brand-teal-50 px-2 py-0.5 rounded-lg border border-brand-teal-100">
+                        {comp.trim()}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
               </div>
@@ -678,11 +760,10 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
               <div className="pt-6 border-t border-gray-50 flex gap-3">
                 <button
                   onClick={() => {
-                    alert("Fitur orang tua asuh akan aktif setelah integrasi backend.");
                     setSelectedTeacher(null);
                     onNavigate("contact");
                   }}
-                  className="flex-1 py-2.5 text-center text-xs font-bold text-white bg-brand-dark-950 hover:bg-brand-dark-900 rounded-xl transition-all cursor-pointer"
+                  className="flex-1 py-2.5 text-center text-xs font-extrabold text-white bg-gradient-to-r from-brand-teal-500 to-brand-teal-600 hover:from-brand-teal-600 hover:to-brand-teal-700 rounded-xl transition-all cursor-pointer shadow-md shadow-brand-teal-500/15"
                 >
                   Konsultasi Program Wali Santri
                 </button>

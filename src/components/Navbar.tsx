@@ -14,14 +14,36 @@ interface NavbarProps {
 
 export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobileSubmenuOpen, setIsMobileSubmenuOpen] = useState(false);
-  const [isReportDropdownOpen, setIsReportDropdownOpen] = useState(false);
-  const [isMobileReportSubmenuOpen, setIsMobileReportSubmenuOpen] = useState(false);
-  const [isUnitsDropdownOpen, setIsUnitsDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  
   const [isMobileUnitsSubmenuOpen, setIsMobileUnitsSubmenuOpen] = useState(false);
-  const [isDakwahDropdownOpen, setIsDakwahDropdownOpen] = useState(false);
+  const [isMobileSubmenuOpen, setIsMobileSubmenuOpen] = useState(false);
+  const [isMobileReportSubmenuOpen, setIsMobileReportSubmenuOpen] = useState(false);
   const [isMobileDakwahSubmenuOpen, setIsMobileDakwahSubmenuOpen] = useState(false);
+
+  const closeTimeoutRef = React.useRef<any>(null);
+
+  const handleMouseEnter = (menuId: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    setActiveDropdown(menuId);
+  };
+
+  const handleMouseLeave = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 250);
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+  };
 
   // Match menu strictly with user requirements, adding Dakwah and optimization
   const menuItems = [
@@ -36,38 +58,34 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
   ];
 
   const unitsSublinks = [
-    { id: "units", label: "Semua Unit Pendidikan" },
-    { id: "units/rumah-belajar", label: "Rumah Belajar" },
-    { id: "units/rumah-tahfizz", label: "Rumah Tahfizz" },
-    { id: "units/rutaba", label: "RUTABA Usia Dini" },
+    { id: "units", label: "Semua Pendidikan" },
+    { id: "units/rumah-belajar", label: "Nurul Quran Learning Center" },
+    { id: "units/rumah-tahfizz", label: "Nurul Quran Tahfidz Center" },
+    { id: "units/rutaba", label: "Rumah Tahfidz Balita" },
   ];
 
   const donationSublinks = [
-    { id: "donations/donasi-pendidikan", label: "Donasi Pendidikan" },
-    { id: "donations/orang-tua-asuh", label: "Orang Tua Asuh" },
-    { id: "donations/program-sosial", label: "Program Sosial" },
+    { id: "donations", label: "Semua Donasi & Wakaf" },
+    { id: "donations/wakaf-pembangunan", label: "Donasi Pembangunan" },
     { id: "donations/wakaf-alquran", label: "Wakaf Al-Qur’an" },
-    { id: "donations/wakaf-pembangunan", label: "Wakaf Pembangunan" },
-    { id: "donations/dukung-dakwah-digital", label: "Dukung Dakwah Digital" },
+    { id: "donations/program-sosial", label: "Program Sosial" },
+    { id: "foster", label: "Orang Tua Asuh" },
   ];
 
   const reportSublinks = [
-    { id: "laporan", label: "Ringkasan Transparansi" },
-    { id: "laporan/pendidikan", label: "Laporan Pendidikan" },
-    { id: "laporan/orang-tua-asuh", label: "Laporan Orang Tua Asuh" },
-    { id: "laporan/program-sosial", label: "Laporan Program Sosial" },
-    { id: "laporan/wakaf-alquran", label: "Laporan Wakaf Al-Qur’an" },
-    { id: "laporan/wakaf-pembangunan", label: "Laporan Wakaf Pembangunan" },
-    { id: "laporan/dakwah-digital", label: "Laporan Dakwah Digital" },
+    { id: "progress", label: "Semua Laporan" },
+    { id: "laporan/wakaf-pembangunan", label: "Laporan Pembangunan" },
+    { id: "laporan/program-sosial", label: "Laporan Donasi" },
+    { id: "laporan/pendidikan", label: "Laporan Program" },
+    { id: "laporan/dakwah-digital", label: "Laporan Dakwah" },
   ];
 
   const dakwahSublinks = [
-    { id: "dakwah", label: "Semua Konten Dakwah" },
-    { id: "dakwah/kajian-online", label: "Kajian Online" },
-    { id: "dakwah/video-dakwah", label: "Video Dakwah" },
-    { id: "dakwah/artikel-islami", label: "Artikel Islami" },
+    { id: "dakwah", label: "Semua Dakwah Digital" },
+    { id: "dakwah/artikel-islami", label: "Artikel Dakwah" },
+    { id: "dakwah/video-dakwah", label: "Kajian YouTube" },
     { id: "dakwah/jadwal-kajian", label: "Jadwal Kajian" },
-    { id: "dakwah/poster-dakwah", label: "Poster Dakwah" },
+    { id: "dakwah/poster-dakwah", label: "Materi Download" },
   ];
 
   const handleMenuClick = (id: string) => {
@@ -108,18 +126,19 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                 (item.id === "about" && (activeView === "about" || activeView === "tentang-yayasan" || activeView === "/tentang-yayasan")) ||
                 (item.id === "units" && (activeView === "units" || activeView === "unit-pendidikan" || activeView === "/unit-pendidikan" || activeView === "pendidikan" || activeView === "/pendidikan" || activeView.startsWith("units/"))) ||
                 (item.id === "contact" && (activeView === "contact" || activeView === "kontak" || activeView === "/kontak")) ||
-                (item.id === "donations" && (activeView === "donasi-wakaf" || activeView === "donations" || activeView.startsWith("donasi-wakaf"))) ||
-                (item.id === "progress" && (activeView === "progress" || activeView === "progress-pembangunan" || activeView === "/progress-pembangunan" || activeView === "laporan" || activeView === "/laporan")) ||
+                (item.id === "donations" && (activeView === "donasi-wakaf" || activeView === "donations" || activeView.startsWith("donasi-wakaf") || activeView.startsWith("donations/"))) ||
+                (item.id === "progress" && (activeView === "progress" || activeView === "progress-pembangunan" || activeView === "/progress-pembangunan" || activeView === "laporan" || activeView === "/laporan" || activeView.startsWith("laporan/"))) ||
                 (item.id === "gallery" && (activeView === "gallery" || activeView === "galeri" || activeView === "/galeri")) ||
                 (item.id === "dakwah" && (activeView === "dakwah" || activeView === "/dakwah" || activeView === "dakwah-digital" || activeView === "/dakwah-digital" || activeView.startsWith("dakwah/")));
 
               if (item.id === "units") {
+                const isOpenDropdown = activeDropdown === "units";
                 return (
                   <div
                     key={item.id}
-                    className="relative group py-2"
-                    onMouseEnter={() => setIsUnitsDropdownOpen(true)}
-                    onMouseLeave={() => setIsUnitsDropdownOpen(false)}
+                    className="relative py-2 px-1"
+                    onMouseEnter={() => handleMouseEnter("units")}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <button
                       onClick={() => handleMenuClick("units")}
@@ -131,13 +150,17 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-200 ${isUnitsDropdownOpen ? "rotate-180 text-brand-teal-500" : ""}`} />
+                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-205 ${isOpenDropdown ? "rotate-180 text-brand-teal-500" : ""}`} />
                     </button>
 
-                    {/* Premium Dropdown with subtle blur & entry transition */}
+                    {/* Invisible bridge/padding area to prevent losing hover state */}
+                    <div className="absolute top-full left-0 w-full h-3 bg-transparent" />
+
+                    {/* Premium Dropdown with stable hover & selection */}
                     <div
-                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-1 w-64 bg-white/98 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl shadow-brand-dark-900/5 py-2 z-50 transition-all duration-200 transform origin-top ${
-                        isUnitsDropdownOpen
+                      onMouseEnter={handleDropdownMouseEnter}
+                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl ring-1 ring-slate-150 py-2.5 z-[999] transition-all duration-200 transform origin-top ${
+                        isOpenDropdown
                           ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
                           : "opacity-0 scale-95 pointer-events-none -translate-y-1"
                       }`}
@@ -146,14 +169,14 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       
                       {unitsSublinks.map((sublink) => {
                         const isSubActive = 
-                          (sublink.id === "units" && (activeView === "units" || activeView === "unit-pendidikan" || activeView === "/unit-pendidikan" || activeView === "pendidikan" || activeView === "/pendidikan")) ||
+                          (sublink.id === "units" && (activeView === "units" || activeView === "pendidikan")) ||
                           (sublink.id !== "units" && activeView === sublink.id);
                         return (
                           <button
                             key={sublink.id}
                             onClick={() => {
                               onNavigate(sublink.id);
-                              setIsUnitsDropdownOpen(false);
+                              setActiveDropdown(null);
                             }}
                             className={`flex items-center justify-between w-full text-left px-4.5 py-2.5 text-[11px] xl:text-xs font-bold transition-all ${
                               isSubActive
@@ -172,15 +195,16 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
               }
 
               if (item.id === "donations") {
+                const isOpenDropdown = activeDropdown === "donations";
                 return (
                   <div
                     key={item.id}
-                    className="relative group py-2"
-                    onMouseEnter={() => setIsDropdownOpen(true)}
-                    onMouseLeave={() => setIsDropdownOpen(false)}
+                    className="relative py-2 px-1"
+                    onMouseEnter={() => handleMouseEnter("donations")}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <button
-                      onClick={() => handleMenuClick(item.id)}
+                      onClick={() => handleMenuClick("donations")}
                       id={`nav-${item.id}`}
                       className={`flex items-center gap-1.5 px-1.5 xl:px-2.5 py-1.5 rounded-lg text-[11px] xl:text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                         isActive
@@ -189,13 +213,17 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-200 ${isDropdownOpen ? "rotate-180 text-brand-teal-500" : ""}`} />
+                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-205 ${isOpenDropdown ? "rotate-180 text-brand-teal-500" : ""}`} />
                     </button>
 
-                    {/* Premium Dropdown with subtle blur & entry transition */}
+                    {/* Invisible bridge/padding area to prevent losing hover state */}
+                    <div className="absolute top-full left-0 w-full h-3 bg-transparent" />
+
+                    {/* Premium Dropdown with stable hover & selection */}
                     <div
-                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-1 w-64 bg-white/98 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl shadow-brand-dark-900/5 py-2 z-50 transition-all duration-200 transform origin-top ${
-                        isDropdownOpen
+                      onMouseEnter={handleDropdownMouseEnter}
+                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl ring-1 ring-slate-150 py-2.5 z-[999] transition-all duration-200 transform origin-top ${
+                        isOpenDropdown
                           ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
                           : "opacity-0 scale-95 pointer-events-none -translate-y-1"
                       }`}
@@ -203,13 +231,16 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-brand-teal-500 to-brand-teal-600 rounded-t-2xl" />
                       
                       {donationSublinks.map((sublink) => {
-                        const isSubActive = activeView === sublink.id || activeView === sublink.id.replace("donations", "donasi-wakaf");
+                        const isSubActive = 
+                          (sublink.id === "donations" && (activeView === "donations" || activeView === "donasi-wakaf")) ||
+                          (sublink.id === "foster" && activeView === "foster") ||
+                          (sublink.id !== "donations" && sublink.id !== "foster" && (activeView === sublink.id || activeView.replace("donasi-wakaf/", "donations/") === sublink.id || activeView.replace("donations/", "donasi-wakaf/") === sublink.id));
                         return (
                           <button
                             key={sublink.id}
                             onClick={() => {
                               onNavigate(sublink.id);
-                              setIsDropdownOpen(false);
+                              setActiveDropdown(null);
                             }}
                             className={`flex items-center justify-between w-full text-left px-4.5 py-2.5 text-[11px] xl:text-xs font-bold transition-all ${
                               isSubActive
@@ -228,12 +259,13 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
               }
 
               if (item.id === "progress") {
+                const isOpenDropdown = activeDropdown === "progress";
                 return (
                   <div
                     key={item.id}
-                    className="relative group py-2"
-                    onMouseEnter={() => setIsReportDropdownOpen(true)}
-                    onMouseLeave={() => setIsReportDropdownOpen(false)}
+                    className="relative py-2 px-1"
+                    onMouseEnter={() => handleMouseEnter("progress")}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <button
                       onClick={() => handleMenuClick("laporan")}
@@ -245,13 +277,17 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-200 ${isReportDropdownOpen ? "rotate-180 text-brand-teal-500" : ""}`} />
+                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-205 ${isOpenDropdown ? "rotate-180 text-brand-teal-500" : ""}`} />
                     </button>
 
-                    {/* Premium Dropdown with subtle blur & entry transition */}
+                    {/* Invisible bridge/padding area to prevent losing hover state */}
+                    <div className="absolute top-full left-0 w-full h-3 bg-transparent" />
+
+                    {/* Premium Dropdown with stable hover & selection */}
                     <div
-                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-1 w-64 bg-white/98 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl shadow-brand-dark-900/5 py-2 z-50 transition-all duration-200 transform origin-top ${
-                        isReportDropdownOpen
+                      onMouseEnter={handleDropdownMouseEnter}
+                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl ring-1 ring-slate-150 py-2.5 z-[999] transition-all duration-200 transform origin-top ${
+                        isOpenDropdown
                           ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
                           : "opacity-0 scale-95 pointer-events-none -translate-y-1"
                       }`}
@@ -260,14 +296,14 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       
                       {reportSublinks.map((sublink) => {
                         const isSubActive = 
-                          (sublink.id === "laporan" && window.location.pathname === "/laporan") ||
-                          (sublink.id !== "laporan" && window.location.pathname === `/${sublink.id}`);
+                          (sublink.id === "progress" && (activeView === "progress" || activeView === "laporan")) ||
+                          (sublink.id !== "progress" && (activeView === sublink.id || activeView.replace("laporan/", "progress/") === sublink.id || activeView.replace("progress/", "laporan/") === sublink.id));
                         return (
                           <button
                             key={sublink.id}
                             onClick={() => {
                               onNavigate(sublink.id);
-                              setIsReportDropdownOpen(false);
+                              setActiveDropdown(null);
                             }}
                             className={`flex items-center justify-between w-full text-left px-4.5 py-2.5 text-[11px] xl:text-xs font-bold transition-all ${
                               isSubActive
@@ -286,12 +322,13 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
               }
 
               if (item.id === "dakwah") {
+                const isOpenDropdown = activeDropdown === "dakwah";
                 return (
                   <div
                     key={item.id}
-                    className="relative group py-2"
-                    onMouseEnter={() => setIsDakwahDropdownOpen(true)}
-                    onMouseLeave={() => setIsDakwahDropdownOpen(false)}
+                    className="relative py-2 px-1"
+                    onMouseEnter={() => handleMouseEnter("dakwah")}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <button
                       onClick={() => handleMenuClick("dakwah")}
@@ -303,13 +340,17 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                       }`}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-200 ${isDakwahDropdownOpen ? "rotate-180 text-brand-teal-500" : ""}`} />
+                      <ChevronDown className={`h-3 w-3 text-gray-400 group-hover:text-brand-teal-500 transition-all duration-205 ${isOpenDropdown ? "rotate-180 text-brand-teal-500" : ""}`} />
                     </button>
 
-                    {/* Premium Dropdown with subtle blur & entry transition */}
+                    {/* Invisible bridge/padding area to prevent losing hover state */}
+                    <div className="absolute top-full left-0 w-full h-3 bg-transparent" />
+
+                    {/* Premium Dropdown with stable hover & selection */}
                     <div
-                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-1 w-64 bg-white/98 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl shadow-brand-dark-900/5 py-2 z-50 transition-all duration-200 transform origin-top ${
-                        isDakwahDropdownOpen
+                      onMouseEnter={handleDropdownMouseEnter}
+                      className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-xl ring-1 ring-slate-150 py-2.5 z-[999] transition-all duration-200 transform origin-top ${
+                        isOpenDropdown
                           ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
                           : "opacity-0 scale-95 pointer-events-none -translate-y-1"
                       }`}
@@ -325,7 +366,7 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                             key={sublink.id}
                             onClick={() => {
                               onNavigate(sublink.id);
-                              setIsDakwahDropdownOpen(false);
+                              setActiveDropdown(null);
                             }}
                             className={`flex items-center justify-between w-full text-left px-4.5 py-2.5 text-[11px] xl:text-xs font-bold transition-all ${
                               isSubActive
@@ -465,19 +506,11 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                     </button>
                     
                     <div className={`overflow-hidden transition-all duration-350 pl-4 space-y-1 bg-gray-50/50 rounded-lg ${isMobileSubmenuOpen ? "max-h-80 opacity-100 py-1.5" : "max-h-0 opacity-0 pointer-events-none"}`}>
-                      {/* Option to view all */}
-                      <button
-                        onClick={() => {
-                          onNavigate("donations");
-                          setIsOpen(false);
-                        }}
-                        className="block w-full text-left px-4 py-2 text-[11px] font-bold text-gray-500 hover:text-brand-teal-500 rounded"
-                      >
-                        • Lihat Semua Program
-                      </button>
-
                       {donationSublinks.map((sublink) => {
-                        const isSubActive = activeView === sublink.id || activeView === sublink.id.replace("donations", "donasi-wakaf");
+                        const isSubActive = 
+                          (sublink.id === "donations" && (activeView === "donations" || activeView === "donasi-wakaf")) ||
+                          (sublink.id === "foster" && activeView === "foster") ||
+                          (sublink.id !== "donations" && sublink.id !== "foster" && (activeView === sublink.id || activeView.replace("donasi-wakaf/", "donations/") === sublink.id || activeView.replace("donations/", "donasi-wakaf/") === sublink.id));
                         return (
                           <button
                             key={sublink.id}
@@ -518,8 +551,8 @@ export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: 
                     <div className={`overflow-hidden transition-all duration-350 pl-4 space-y-1 bg-gray-50/50 rounded-lg ${isMobileReportSubmenuOpen ? "max-h-96 opacity-100 py-1.5" : "max-h-0 opacity-0 pointer-events-none"}`}>
                       {reportSublinks.map((sublink) => {
                         const isSubActive = 
-                          (sublink.id === "laporan" && window.location.pathname === "/laporan") ||
-                          (sublink.id !== "laporan" && window.location.pathname === `/${sublink.id}`);
+                          (sublink.id === "progress" && (activeView === "progress" || activeView === "laporan")) ||
+                          (sublink.id !== "progress" && (activeView === sublink.id || activeView.replace("laporan/", "progress/") === sublink.id || activeView.replace("progress/", "laporan/") === sublink.id));
                         return (
                           <button
                             key={sublink.id}

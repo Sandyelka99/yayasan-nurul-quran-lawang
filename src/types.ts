@@ -51,11 +51,12 @@ export interface ProgressUpdate {
 }
 
 export interface GalleryItem {
-  id: string;
+  id: number | string;
   title: string;
   description: string;
-  category: "pembangunan" | "rutaba" | "tahfidz" | "kegiatan";
+  category: "Pendidikan" | "Dakwah" | "Sosial" | "Wakaf" | "Pembangunan" | "Kegiatan Santri" | string;
   imageUrl: string;
+  date?: string;
 }
 
 export interface Testimony {

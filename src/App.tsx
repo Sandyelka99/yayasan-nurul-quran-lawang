@@ -9,9 +9,10 @@ import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import EducationUnits from "./components/EducationUnits";
 import DonationCampaigns from "./components/DonationCampaigns";
-import FosterParent from "./components/FosterParent";
-import CoreValues from "./components/CoreValues";
-import DevelopmentProgress from "./components/DevelopmentProgress";
+import MainPillars from "./components/MainPillars";
+import HomeReportsPreview from "./components/HomeReportsPreview";
+import HomeDakwahPreview from "./components/HomeDakwahPreview";
+import ClosingCTA from "./components/ClosingCTA";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import AdminDashboard from "./components/AdminDashboard";
@@ -336,73 +337,40 @@ export default function App() {
       <main className="flex-1">
         {activeView === "home" && (
           <>
-            {/* 1. Cinematic Hero section with high-contrast text overlay */}
+            {/* 1. Cinematic Hero with custom badge and targeted CTAs */}
             <Hero
+              onNavigate={handleNavigate}
               onDonateClick={handleOpenGeneralDonation}
-              onFosterClick={() => handleNavigate("foster")}
-              onBrowsePrograms={() => scrollToSection("section-campaigns")}
             />
 
-            {/* 2. Overlapping floats stats section showing metrics */}
+            {/* 2. Real statistics and metrics (Sekilas Tentang Kami) */}
             <Stats onProgressClick={() => handleNavigate("progress")} />
 
-            {/* 3. Core Values Sunnah guidelines */}
-            <CoreValues />
+            {/* 3. Main Pillars of the Foundation (Pilar Utama Yayasan) */}
+            <MainPillars onNavigate={handleNavigate} />
 
-            {/* 4. Education units division program */}
-            <EducationUnits
-              onLearnMoreUnit={(id) => handleNavigate("units")}
-              onSponsorshipTrigger={() => handleNavigate("foster")}
-            />
+            {/* 4. Education Preview Section */}
+            <EducationUnits onLearnMoreUnit={(id) => handleNavigate("units")} />
 
-            {/* 5. Crowdfund listing */}
+            {/* 5. Donasi & Wakaf Campaigns Preview Section */}
             <DonationCampaigns 
               onDonateSelect={handleOpenCampaignDonation} 
-              onViewDetail={(slug) => handleNavigate("donasi-wakaf/" + slug)}
+              onNavigate={handleNavigate}
             />
 
-            {/* 6. Foster parents sponsorship section */}
-            <FosterParent onFosterSelect={handleOpenFosterSponsorship} />
+            {/* 6. Laporan & Transparansi updates preview */}
+            <HomeReportsPreview onNavigate={handleNavigate} />
 
-            {/* 7. Real-time development progress timeline */}
-            <DevelopmentProgress />
+            {/* 7. Dakwah Digital preview */}
+            <HomeDakwahPreview onNavigate={handleNavigate} />
 
-            {/* 8. Pristine filterable photograph gallery without face closeups */}
-            <Gallery />
+            {/* 8. Photographic Gallery preview mapping to filters */}
+            <Gallery onNavigate={handleNavigate} />
 
-            {/* 9. Testimonials of Trust & Sincerity */}
-            <section className="py-24 bg-white relative overflow-hidden border-t border-gray-100">
-              <div className="absolute right-0 bottom-10 w-80 h-80 bg-brand-gold-500/5 rounded-full blur-[90px] pointer-events-none" />
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center max-w-xl mx-auto mb-14">
-                  <span className="text-[10px] font-extrabold tracking-widest text-brand-teal-500 bg-brand-teal-50 px-3 py-1 rounded-full uppercase">
-                    KATA MEREKA
-                  </span>
-                  <h2 className="text-2xl font-extrabold text-brand-dark-900 mt-3">
-                    Kepercayaan Donatur & Tim Lapangan
-                  </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {TESTIMONIALS.map((testi) => (
-                    <div key={testi.id} className="bg-brand-dark-50 p-6 rounded-2xl border border-gray-150 relative">
-                      <span className="text-4xl text-brand-teal-200 font-serif absolute top-4 left-4 select-none">“</span>
-                      <p className="text-xs text-gray-600 leading-relaxed italic relative z-10 pt-4">
-                        {testi.content}
-                      </p>
-                      <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-brand-gold-500 rounded-full" />
-                        <div>
-                          <span className="block text-xs font-bold text-brand-dark-900">{testi.author}</span>
-                          <span className="block text-[10px] text-gray-400 font-semibold">{testi.role}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+            {/* 9. Closing CTA Section */}
+            <ClosingCTA onNavigate={handleNavigate} />
 
-            {/* 10. Contact form & coordinates */}
+            {/* 10. Contact Section and Coordinates */}
             <Contact />
           </>
         )}

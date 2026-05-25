@@ -4,8 +4,7 @@
  */
 
 import React from "react";
-import { GraduationCap, BookOpen, Heart, Activity, Building2 } from "lucide-react";
-import { STATISTICS } from "../data/mockData";
+import { Users, GraduationCap, Heart, HelpCircle, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 
 interface StatsProps {
@@ -15,116 +14,100 @@ interface StatsProps {
 export default function Stats({ onProgressClick }: StatsProps) {
   const statItems = [
     {
-      id: "students",
-      label: "Santri Binaan Aktif",
-      value: STATISTICS.activeStudents.toLocaleString("id-ID") + "+",
-      description: "Rutaba, Tahfiz, & Bina Akademik",
-      icon: GraduationCap,
+      id: "penerima_manfaat",
+      label: "Penerima Manfaat",
+      value: "1.245+",
+      description: "Yatim, dhuafa, & keluarga lingkar Lawang",
+      icon: Users,
       color: "text-brand-teal-500 bg-brand-teal-50",
     },
     {
-      id: "teachers",
-      label: "Asatidzah & Staff",
-      value: STATISTICS.teachers.toString() + "+",
-      description: "Pengajar berstandar sanad & Lc",
-      icon: BookOpen,
-      color: "text-amber-600 bg-amber-50",
+      id: "santri_binaan",
+      label: "Santri & Peserta Binaan",
+      value: "85+",
+      description: "Rutaba, Tahfidz, & Bina Akademik",
+      icon: GraduationCap,
+      color: "text-amber-500 bg-amber-50",
     },
     {
-      id: "donors",
-      label: "Muzakki & Donatur",
-      value: STATISTICS.donors.toLocaleString("id-ID") + "+",
-      description: "Ikut berkontribusi dakwah",
+      id: "donatur_mitra",
+      label: "Donatur & Mitra Kebaikan",
+      value: "2.430+",
+      description: "Sinergi amal jariyah seantero umat",
       icon: Heart,
       color: "text-rose-500 bg-rose-50",
     },
     {
-      id: "programs",
-      label: "Program Pendidikan",
-      value: STATISTICS.activePrograms.toString() + " Aktif",
-      description: "Pendidikan & Sosial Sinergi",
-      icon: Activity,
+      id: "program_aktif",
+      label: "Program Aktif",
+      value: "12",
+      description: "Pilar pendidikan, sosial, & dakwah",
+      icon: HelpCircle,
       color: "text-indigo-500 bg-indigo-50",
     },
   ];
 
   return (
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 sm:-mt-16 z-20">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <section className="py-24 bg-brand-dark-50 relative overflow-hidden" id="section-stats-summary">
+      {/* Visual ornaments */}
+      <div className="absolute right-0 top-1/4 w-80 h-80 bg-brand-teal-500/5 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute inset-0 islamic-grid opacity-15 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Core Quick Numerical Stats Card */}
-        <div className="md:col-span-8 bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-brand-dark-900/5 border border-gray-100 grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Statistics Headings block */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+          <div className="lg:col-span-5 space-y-4">
+            <span className="text-xs font-bold tracking-widest text-[#0a8a9a] bg-brand-teal-100/60 px-3.5 py-1.5 rounded-full uppercase">
+              Sekilas Tentang Kami
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark-900 tracking-tight leading-tight">
+              Lembaga Pembinaan, Pendidikan, dan Pelayanan Umat
+            </h2>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="text-sm text-gray-500 leading-relaxed font-semibold">
+              Yayasan Nurul Quran terus bertumbuh sebagai lembaga yang berfokus pada pendidikan, dakwah, kepedulian sosial, serta pembangunan ekosistem generasi Qurani yang berkelanjutan.
+            </p>
+          </div>
+        </div>
+
+        {/* 4 Beautiful Numeric Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {statItems.map((item, idx) => {
             const Icon = item.icon;
             return (
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 key={item.id}
-                className="flex flex-col justify-between"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-150 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className={`p-2 rounded-xl ${item.color}`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-extrabold text-brand-dark-900 tracking-tight">
+                  <div className={`p-3 rounded-2xl w-fit ${item.color} mb-5 shadow-sm`}>
+                    <Icon className="h-5 w-5 stroke-2" />
+                  </div>
+                  
+                  <div className="text-3xl sm:text-4xl font-extrabold text-brand-dark-900 tracking-tight font-sans">
                     {item.value}
                   </div>
-                  <div className="text-xs font-bold text-gray-800 mt-1">
+                  
+                  <div className="text-xs font-bold text-gray-800 mt-2">
                     {item.label}
                   </div>
-                  <div className="text-[10px] text-gray-500 font-medium mt-0.5">
-                    {item.description}
-                  </div>
+                </div>
+
+                <div className="text-[11px] text-gray-400 font-semibold mt-3 pt-3 border-t border-gray-100">
+                  {item.description}
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Real-time Construction Progress Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          onClick={onProgressClick}
-          className="md:col-span-4 bg-gradient-to-tr from-brand-teal-700 to-brand-teal-600 text-white rounded-2xl p-6 shadow-xl shadow-brand-teal-500/10 border border-brand-teal-600 flex flex-col justify-between cursor-pointer group hover:brightness-105 active:scale-99 transition-all"
-          id="stats-construction-card"
-        >
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-extrabold tracking-wider bg-black/15 text-brand-teal-100 rounded-full px-2.5 py-1 uppercase">
-                Progress Pembangunan
-              </span>
-              <Building2 className="h-5 w-5 text-brand-teal-200" />
-            </div>
-            <div className="text-2xl font-extrabold tracking-tight mt-1">
-              Gedung Pesantren {STATISTICS.constructionProgress}%
-            </div>
-            <p className="text-xs text-brand-teal-100/90 mt-1 font-medium leading-normal">
-              Saat ini memasuki tahap penyelesaian atap cor masjid & pembagian porselen kluster asrama putra.
-            </p>
-          </div>
-
-          <div className="mt-5">
-            <div className="flex justify-between text-xs font-bold mb-1">
-              <span className="text-brand-teal-200">Realisasi Anggaran</span>
-              <span>Rp 1.17 M / Rp 1.50 M</span>
-            </div>
-            {/* Styled progress bar */}
-            <div className="w-full bg-brand-teal-800 h-2 rounded-full overflow-hidden">
-              <div 
-                className="bg-brand-gold-500 h-full rounded-full transition-all duration-1000" 
-                style={{ width: `${STATISTICS.constructionProgress}%` }}
-              />
-            </div>
-          </div>
-        </motion.div>
-
       </div>
-    </div>
+    </section>
   );
 }

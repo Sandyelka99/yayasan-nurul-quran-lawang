@@ -3,190 +3,155 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
-import { Heart, Users, Flame, Star, Coins } from "lucide-react";
-import { CAMPAIGNS } from "../data/mockData";
-import { Campaign } from "../types";
+import React from "react";
+import { Heart, Building2, BookMarked, ShieldCheck, Users, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
 interface DonationCampaignsProps {
-  onDonateSelect: (campaign: Campaign) => void;
-  onViewDetail?: (slug: string) => void;
+  onDonateSelect: (campaign: any) => void;
+  onNavigate: (viewId: string) => void;
 }
 
-export default function DonationCampaigns({ onDonateSelect, onViewDetail }: DonationCampaignsProps) {
-  const [filter, setFilter] = useState<string>("semua");
-
-  const categories = [
-    { id: "semua", label: "Semua Program" },
-    { id: "pembangunan", label: "Pembangunan" },
-    { id: "wakaf", label: "Wakaf" },
-    { id: "sosial", label: "Makan & Sosial" },
-    { id: "beasiswa", label: "Beasiswa" },
+export default function DonationCampaigns({ onDonateSelect, onNavigate }: DonationCampaignsProps) {
+  const donationPrograms = [
+    {
+      id: "pembangunan",
+      title: "Donasi Pembangunan",
+      description: "Pembangunan prasarana fisik pesantren, asrama santri tahfidz Lawang, dan sarana ibadah jamaah.",
+      icon: Building2,
+      tag: "Fisik & Prasarana",
+      percentage: "78%",
+      color: "text-amber-500 bg-amber-50 border-amber-100",
+    },
+    {
+      id: "wakaf-quran",
+      title: "Wakaf Al-Qur’an",
+      description: "Pengadaan mushaf Al-Qur'an terstandar syar'i untuk dibagikan gratis kepada santri, majelis taklim, dan masyarakat binaan.",
+      icon: BookMarked,
+      tag: "Amal Jariyah",
+      percentage: "90%",
+      color: "text-[#0a8a9a] bg-brand-teal-50 border-brand-teal-100",
+    },
+    {
+      id: "sosial",
+      title: "Program Sosial",
+      description: "Penyaluran paket sembako dhuafa, beasiswa santri berprestasi, ramadhan berkah, dan santunan yatim.",
+      icon: Users,
+      tag: "Kemaslahatan Umum",
+      percentage: "85%",
+      color: "text-indigo-500 bg-indigo-50 border-indigo-100",
+    },
+    {
+      id: "foster",
+      title: "Orang Tua Asuh",
+      description: "Program dukungan pendidikan dan pembinaan bagi anak-anak yang membutuhkan melalui kontribusi rutin dari para dermawan.",
+      icon: Heart,
+      tag: "Sponsorship Rutin",
+      percentage: "60%",
+      color: "text-rose-500 bg-rose-50 border-rose-100",
+    },
   ];
 
-  const filteredCampaigns = filter === "semua"
-    ? CAMPAIGNS
-    : CAMPAIGNS.filter(c => c.category === filter);
-
   return (
-    <section className="py-24 bg-brand-dark-50 relative overflow-hidden" id="section-campaigns">
-      {/* Decorative Ornaments */}
-      <div className="absolute left-0 top-10 w-64 h-64 bg-brand-teal-500/5 rounded-full blur-[80px] pointer-events-none" />
-      <div className="absolute inset-0 islamic-grid opacity-20 pointer-events-none" />
+    <section className="py-24 bg-brand-dark-50 relative overflow-hidden" id="section-home-donations">
+      {/* Ornaments in background */}
+      <div className="absolute right-0 bottom-1/4 w-80 h-80 bg-brand-teal-500/5 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute left-0 top-1/4 w-80 h-80 bg-brand-gold-500/5 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute inset-0 islamic-grid opacity-15 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-          <div className="max-w-xl">
-            <span className="text-xs font-bold tracking-widest text-[#0a8a9a] bg-brand-teal-100/60 px-3.5 py-1.5 rounded-full uppercase">
-              DONASI & WAKAF DIGITAL
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark-900 mt-4 tracking-tight">
-              Peluang Amal Jariyah & Investasi Akhirat Anda
-            </h2>
-            <p className="mt-3 text-sm text-gray-500 font-medium leading-relaxed">
-              Salurkan donasi, sedekah bulanan, serta wakaf produktif Anda secara digital, aman, dan berlandaskan keterbukaan laporan keuangan berstandar amanah.
-            </p>
-          </div>
-          
-          {/* Quick Informative Card */}
-          <div className="hidden lg:flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-gray-150 shadow-sm max-w-sm">
-            <div className="p-2.5 rounded-xl bg-orange-50 text-orange-500 shrink-0">
-              <Coins className="h-5 w-5" />
-            </div>
-            <div>
-              <span className="block text-xs font-bold text-brand-dark-900">100% Disalurkan</span>
-              <span className="block text-[10px] text-gray-400 font-medium">Dana terkumpul murni didedikasikan untuk kebutuhan santri, tanpa komisi pihak ketiga.</span>
-            </div>
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs font-bold tracking-widest text-brand-teal-500 bg-brand-teal-50 px-3.5 py-1.5 rounded-full uppercase">
+            Donasi & Wakaf Yayasan
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark-900 mt-4 tracking-tight">
+            Salurkan Kebaikan untuk Pendidikan, Dakwah, dan Sosial Umat
+          </h2>
+          <p className="mt-4 text-sm text-gray-500 font-medium leading-relaxed">
+            Every donasi dan wakaf yang dititipkan menjadi bagian dari ikhtiar bersama dalam mendidik generasi Qurani dan melayani kebutuhan umat rujukan amanat syariah.
+          </p>
         </div>
 
-        {/* Filter Tab buttons */}
-        <div className="flex flex-wrap items-center gap-1.5 mb-10 overflow-x-auto pb-2 scrollbar-none">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setFilter(cat.id)}
-              className={`py-2 px-4 text-xs font-bold rounded-full border transition-all cursor-pointer whitespace-nowrap ${
-                filter === cat.id
-                  ? "bg-brand-teal-500 border-brand-teal-500 text-white shadow-sm"
-                  : "bg-white border-gray-150 text-gray-600 hover:text-brand-teal-500 hover:bg-gray-50"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Campaigns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCampaigns.map((camp, index) => {
-            const percent = Math.min(Math.round((camp.currentAmount / camp.targetAmount) * 100), 100);
+        {/* 4 Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {donationPrograms.map((prog, idx) => {
+            const Icon = prog.icon;
             return (
               <motion.div
+                key={prog.id}
                 initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                key={camp.id}
-                className="bg-white rounded-2xl overflow-hidden border border-gray-150 shadow-sm hover:shadow-xl hover:shadow-brand-dark-900/5 transition-all flex flex-col justify-between"
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                onClick={() => {
+                  if (prog.id === "foster") {
+                    onNavigate("foster");
+                  } else {
+                    onNavigate("donations");
+                  }
+                }}
+                className="bg-white rounded-2xl p-6 sm:p-7 border border-gray-150 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between cursor-pointer group"
               >
-                {/* Thumbnail */}
-                <div className="relative h-44 bg-brand-dark-900 overflow-hidden">
-                  <img
-                    src={camp.imageUrl}
-                    alt={camp.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-102"
-                  />
-                  {/* Category overlay */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="text-[9px] font-extrabold tracking-wider text-white bg-brand-dark-900/60 backdrop-blur-md px-2.5 py-1 rounded-full uppercase">
-                      {camp.category}
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider">
+                      {prog.tag}
                     </span>
+                    <div className={`p-2.5 rounded-xl border ${prog.color}`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
                   </div>
 
-                  {/* Urgent indicator */}
-                  {camp.isUrgent && (
-                    <div className="absolute top-4 right-4 z-10 flex items-center gap-1 px-2.5 py-1 text-[9px] font-extrabold text-[#7f1d1d] bg-red-100 rounded-full">
-                      <Flame className="h-3 w-3 fill-red-500 text-red-500" />
-                      URGENT
-                    </div>
-                  )}
+                  <h3 className="text-base font-extrabold text-brand-dark-900 group-hover:text-brand-teal-500 transition-colors">
+                    {prog.title}
+                  </h3>
+
+                  <p className="text-xs text-gray-500 mt-3.5 leading-relaxed font-semibold">
+                    {prog.description}
+                  </p>
                 </div>
 
-                {/* Body Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 
-                      onClick={() => onViewDetail && onViewDetail(camp.id === "pesantren-pembangunan" || camp.id === "pesantren-pembangunan" ? "pembangunan-pesantren" : camp.id)}
-                      className="text-sm sm:text-base font-extrabold text-brand-dark-900 leading-snug line-clamp-2 hover:text-brand-teal-500 transition-colors cursor-pointer"
-                    >
-                      {camp.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 mt-2 font-medium line-clamp-2 leading-relaxed">
-                      {camp.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-6">
-                    {/* Progress Bar Container */}
-                    <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden mb-3">
-                      <div
-                        className="bg-gradient-to-r from-brand-teal-500 to-teal-400 h-full rounded-full"
-                        style={{ width: `${percent}%` }}
-                      />
-                    </div>
-
-                    {/* Numeric tracking metrics */}
-                    <div className="grid grid-cols-2 gap-2 mb-5">
-                      <div>
-                        <span className="block text-[10px] font-bold text-gray-400 uppercase">Terkumpul</span>
-                        <span className="block text-xs font-extrabold text-brand-teal-600 font-mono">
-                          Rp {camp.currentAmount.toLocaleString("id-ID")}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <span className="block text-[10px] font-bold text-gray-400 uppercase">Target Dana</span>
-                        <span className="block text-xs font-extrabold text-brand-dark-900 font-mono">
-                          Rp {camp.targetAmount.toLocaleString("id-ID")}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-1.5 text-gray-500 font-medium">
-                        <Users className="h-3.5 w-3.5 text-brand-teal-400" />
-                        <span className="text-[10px] font-bold">{camp.donorsCount} Donatur</span>
-                      </div>
-                      <span className="text-xs font-extrabold text-brand-teal-500 bg-brand-teal-50 px-2 py-0.5 rounded font-mono">
-                        {percent}%
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 mt-5">
-                      <button
-                        onClick={() => onViewDetail && onViewDetail(camp.id === "pesantren-pembangunan" || camp.id === "pesantren-pembangunan" ? "pembangunan-pesantren" : camp.id)}
-                        className="flex items-center justify-center py-2.5 px-3 text-xs font-bold text-gray-500 hover:text-brand-teal-600 border border-gray-150 hover:border-brand-teal-200 hover:bg-brand-teal-50/20 rounded-xl transition-all cursor-pointer"
-                      >
-                        Lihat Detail
-                      </button>
-                      <button
-                        onClick={() => onDonateSelect(camp)}
-                        className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-white bg-gradient-to-r from-brand-teal-500 to-brand-teal-600 hover:from-brand-teal-600 hover:to-brand-teal-700 transition-all rounded-xl shadow-md shadow-brand-teal-500/10 cursor-pointer"
-                      >
-                        <Heart className="h-3 w-3 fill-white" />
-                        Donasi
-                      </button>
-                    </div>
-                  </div>
+                <div className="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-teal-600">
+                  <span>
+                    {prog.id === "foster" ? "Jadi Orang Tua Asuh" : "Salurkan Donasi"}
+                  </span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Beautiful footer alert banner */}
+        <div className="mt-14 max-w-4xl mx-auto flex items-center justify-between flex-col md:flex-row bg-white rounded-3xl p-6 sm:p-8 border border-gray-150 shadow-sm gap-6">
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:block p-3 rounded-2xl bg-brand-teal-50 text-brand-teal-500">
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <div>
+              <h4 className="text-sm font-extrabold text-brand-dark-900">Garansi Penyaluran 100% Bebas Korupsi & Transparan</h4>
+              <p className="text-xs text-gray-400 font-semibold mt-1">Kami menerapkan pelaporan real-time, audit keuangan rapi, serta pembukuan syariah.</p>
+            </div>
+          </div>
+          
+          <div className="flex shrink-0 gap-3 w-full md:w-auto">
+            <button
+              onClick={() => onNavigate("donations")}
+              className="flex-1 md:flex-none text-center py-2.5 px-5 bg-brand-teal-500 hover:bg-brand-teal-600 text-white text-xs font-bold rounded-xl transition-all cursor-pointer shadow-md shadow-brand-teal-500/10"
+            >
+              Salurkan Donasi Sekarang
+            </button>
+            <button
+              onClick={() => onNavigate("foster")}
+              className="flex-1 md:flex-none text-center py-2.5 px-5 bg-white hover:bg-gray-50 border border-gray-200 text-gray-600 text-xs font-bold rounded-xl transition-all cursor-pointer"
+            >
+              Jadi Orang Tua Asuh
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   );
