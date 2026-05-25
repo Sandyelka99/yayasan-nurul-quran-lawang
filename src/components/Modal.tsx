@@ -115,8 +115,15 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
 
     // Tunggu sedikit untuk UX yang lebih smooth
     setTimeout(() => {
-      // Buka WhatsApp di tab/window baru
-      window.open(whatsappURL, "_blank");
+      // Buka WhatsApp di tab/window baru dengan security parameters
+      try {
+        window.open(whatsappURL, "_blank", "noopener,noreferrer");
+      } catch (error) {
+        console.error("Error opening WhatsApp URL:", error);
+        setValidationError("Gagal membuka WhatsApp. Silakan coba lagi.");
+        setIsProcessing(false);
+        return;
+      }
       
       // Tampilkan pesan terima kasih
       alert("Terima kasih! Anda akan diarahkan ke WhatsApp admin keuangan untuk konfirmasi donasi.");
