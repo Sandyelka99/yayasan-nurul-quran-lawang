@@ -7,6 +7,11 @@ import React, { useState } from "react";
 import { X, Check, Copy, AlertCircle, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Campaign, FosterPackage } from "../types";
+import { 
+  WHATSAPP_FINANCE_PHONE, 
+  generateWhatsAppURL, 
+  generateDonationConfirmationMessage 
+} from "../config";
 
 interface ModalProps {
   isOpen: boolean;
@@ -29,6 +34,7 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
   const [copied, setCopied] = useState(false);
   const [customAmount, setCustomAmount] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const presetAmounts = ["50000", "100000", "250000", "500000", "1000000"];
 
@@ -56,6 +62,70 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
     setIsAnonymous(false);
     setCopied(false);
     setValidationError(null);
+  };
+
+  const handleConfirmViaWhatsApp = () => {
+    // Validasi data sebelum redirect WhatsApp
+    if (!amount || parseInt(amount) < 10000) {
+      setValidationError("Nominal donasi tidak valid.");
+      return;
+    }
+
+    if (!donorName.trim() && !isAnonymous) {
+      setValidationError("Nama donatur harus diisi atau pilih 'Hamba Allah'.");
+      return;
+    }
+
+    if (!phone.trim()) {
+      setValidationError("Nomor WhatsApp donatur wajib diisi.");
+      return;
+    }
+
+    if (!paymentMethod) {
+      setValidationError("Metode pembayaran harus dipilih.");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    // Mapping nama program
+    const programName = campaign?.title || fosterPackage?.name || "Program Donasi";
+
+    // Mapping nama metode pembayaran
+    const paymentMethodName = 
+      paymentMethod === "qris" ? "QRIS Instant" :
+      paymentMethod === "bsi" ? "Bank BSI" :
+      "Bank Mandiri";
+
+    // Nama donatur akhir (sesuai checkbox anonim)
+    const finalDonorName = isAnonymous ? "Hamba Allah" : donorName.trim();
+
+    // Generate pesan konfirmasi
+    const message = generateDonationConfirmationMessage(
+      programName,
+      parseInt(amount),
+      paymentMethodName,
+      finalDonorName,
+      email,
+      phone
+    );
+
+    // Generate WhatsApp URL
+    const whatsappURL = generateWhatsAppURL(WHATSAPP_FINANCE_PHONE, message);
+
+    // Tunggu sedikit untuk UX yang lebih smooth
+    setTimeout(() => {
+      // Buka WhatsApp di tab/window baru
+      window.open(whatsappURL, "_blank");
+      
+      // Tampilkan pesan terima kasih
+      alert("Terima kasih! Anda akan diarahkan ke WhatsApp admin keuangan untuk konfirmasi donasi.");
+      
+      // Reset form dan tutup modal
+      resetForm();
+      onClose();
+      setIsProcessing(false);
+    }, 300);
   };
 
   const handleClose = () => {
@@ -222,14 +292,13 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-brand-dark-900 mb-1.5">
-                      Email
+                      Email (opsional)
                     </label>
                     <input
                       type="email"
-                      required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="nama@email.com"
+                      placeholder="nama@email.com (opsional)"
                       className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-brand-dark-900 transition-all focus:border-brand-teal-500 focus:ring-2 focus:ring-brand-teal-500/20 outline-none"
                     />
                   </div>
@@ -403,6 +472,10 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
                 PENTING: Setelah menyalurkan dana Anda, mohon kirim bukti transfer ke nomor WhatsApp resmi kami <strong>+62 822-3401-2041</strong> agar dicatat sebagai mutasi program {fosterPackage ? "Orang Tua Asuh" : "Donasi"}.
               </div>
 
+              <div className="mb-6 rounded-xl bg-brand-teal-50/50 border border-brand-teal-200/50 p-4 text-xs text-brand-teal-700 leading-relaxed font-semibold">
+                💡 Setelah melakukan transfer/scan QRIS, klik tombol konfirmasi agar admin keuangan dapat mencatat donasi Anda dengan segera.
+              </div>
+
               <div className="flex gap-3">
                 <button
                   onClick={() => setStep(1)}
@@ -411,11 +484,21 @@ export default function Modal({ isOpen, onClose, campaign, fosterPackage, defaul
                   Kembali
                 </button>
                 <button
-                  onClick={handleClose}
-                  className="w-2/3 py-3 rounded-xl font-bold text-white bg-brand-teal-500 hover:bg-brand-teal-600 shadow-lg shadow-brand-teal-500/10 transition-all text-sm flex justify-center items-center gap-2"
+                  onClick={handleConfirmViaWhatsApp}
+                  disabled={isProcessing}
+                  className="w-2/3 py-3 rounded-xl font-bold text-white bg-brand-teal-500 hover:bg-brand-teal-600 disabled:bg-gray-400 shadow-lg shadow-brand-teal-500/10 transition-all text-sm flex justify-center items-center gap-2 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed"
                 >
-                  <Check className="h-4 w-4" />
-                  Selesai Konfirmasi
+                  {isProcessing ? (
+                    <>
+                      <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Memproses...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="h-4 w-4" />
+                      Konfirmasi via WhatsApp
+                    </>
+                  )}
                 </button>
               </div>
             </div>
