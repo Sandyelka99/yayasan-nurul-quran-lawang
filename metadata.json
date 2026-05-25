@@ -1,0 +1,6 @@
+{
+  "name": "Yayasan Nurul Quran Lawang",
+  "description": "Digital Islamic Education and Donation Ecosystem for Yayasan Nurul Quran Lawang, Malang.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
