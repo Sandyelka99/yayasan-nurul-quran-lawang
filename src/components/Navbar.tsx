@@ -1,185 +1,104 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { Menu, X, Heart, Settings } from "lucide-react";
 
-interface NavbarProps {
-  activeView: string;
-  onNavigate: (viewId: string) => void;
-  onOpenDonationModal: () => void;
-}
+const navItems = [
+  { label: "Beranda", href: "/" },
+  { label: "Tentang Yayasan", href: "/tentang-yayasan" },
+  { label: "Unit Pendidikan", href: "/unit-pendidikan" },
+  { label: "Donasi & Wakaf", href: "/donasi-wakaf" },
+  { label: "Orang Tua Asuh", href: "/orang-tua-asuh" },
+  { label: "Progress", href: "/progress-pembangunan" },
+  { label: "Dakwah", href: "/dakwah" },
+  { label: "Galeri", href: "/galeri" },
+  { label: "Kontak", href: "/kontak" },
+];
 
-export default function Navbar({ activeView, onNavigate, onOpenDonationModal }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Match menu strictly with user requirements, adding an elegant Admin Link at the end
-  const menuItems = [
-    { id: "home", label: "Beranda" },
-    { id: "about", label: "Tentang Yayasan" },
-    { id: "units", label: "Unit Pendidikan" },
-    { id: "donations", label: "Donasi & Wakaf" },
-    { id: "foster", label: "Orang Tua Asuh" },
-    { id: "progress", label: "Progress" },
-    { id: "gallery", label: "Galeri" },
-    { id: "contact", label: "Kontak" },
-  ];
-
-  const handleMenuClick = (id: string) => {
-    onNavigate(id);
-    setIsOpen(false);
-  };
-
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3 md:py-4">
-          
-          {/* Brand Logo Identity */}
-          <a 
-            href="/" 
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate("home");
-            }}
-            className="flex items-center gap-3 cursor-pointer select-none"
-            id="brand-logo"
+    <header className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur-xl">
+      <div className="mx-auto flex min-h-24 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="/" className="flex items-center">
+          <img
+            src="/logo-nurul-quran.png"
+            alt="Logo Yayasan Nurul Quran Lawang Malang"
+            className="h-16 w-auto object-contain sm:h-18 md:h-20 lg:h-24"
+          />
+        </a>
+
+        <nav className="hidden items-center gap-1 lg:flex">
+          {navItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="rounded-full px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-700"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden items-center gap-3 lg:flex">
+          <a
+            href="/admin"
+            className="flex items-center gap-1 rounded-full px-3 py-2 text-xs font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
           >
-            <img
-              src="/logo-nurul-quran.png"
-              alt="Logo Yayasan Nurul Quran Lawang Malang"
-              className="h-14 w-auto object-contain md:h-16 lg:h-20"
-            />
+            <Settings className="h-4 w-4" />
+            Admin
           </a>
 
-          {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-1.5">
-            {menuItems.map((item) => {
-              const isActive = 
-                activeView === item.id || 
-                (item.id === "about" && (activeView === "about" || activeView === "tentang-yayasan" || activeView === "/tentang-yayasan")) ||
-                (item.id === "units" && (activeView === "units" || activeView === "unit-pendidikan" || activeView === "/unit-pendidikan")) ||
-                (item.id === "contact" && (activeView === "contact" || activeView === "kontak" || activeView === "/kontak")) ||
-                (item.id === "donations" && (activeView === "donasi-wakaf" || activeView === "donations" || activeView.startsWith("donasi-wakaf"))) ||
-                (item.id === "foster" && (activeView === "foster" || activeView === "orang-tua-asuh" || activeView === "/orang-tua-asuh")) ||
-                (item.id === "progress" && (activeView === "progress" || activeView === "progress-pembangunan" || activeView === "/progress-pembangunan")) ||
-                (item.id === "gallery" && (activeView === "gallery" || activeView === "galeri" || activeView === "/galeri"));
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onNavigate(item.id)}
-                  id={`nav-${item.id}`}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? "text-brand-teal-500 bg-brand-teal-50/50"
-                      : "text-gray-600 hover:text-brand-teal-500 hover:bg-gray-50"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-
-            {/* Admin Dashboard shortcut trigger */}
-            <button
-              onClick={() => onNavigate("admin")}
-              id="nav-admin"
-              className={`ml-2 p-1.5 rounded-lg text-gray-400 hover:text-brand-teal-500 hover:bg-gray-50 transition-colors cursor-pointer flex items-center gap-1 ${
-                activeView === "admin" ? "text-brand-teal-500 bg-brand-teal-50/50" : ""
-              }`}
-              title="Admin Dashboard"
-            >
-              <Settings className="h-4 w-4" />
-              <span className="text-[10px] font-bold">Admin</span>
-            </button>
-          </nav>
-
-          {/* CTA "Donasi Sekarang" */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={onOpenDonationModal}
-              id="btn-navbar-donate"
-              className="relative flex items-center gap-2 py-2 px-4 text-xs font-extrabold text-white rounded-full bg-gradient-to-r from-brand-teal-500 to-brand-teal-600 hover:from-brand-teal-600 hover:to-brand-teal-700 transition-all duration-300 shadow-md shadow-brand-teal-500/10 cursor-pointer"
-            >
-              <Heart className="h-3.5 w-3.5 fill-white" />
-              Donasi Sekarang
-            </button>
-          </div>
-
-          {/* Mobile hamburger menu */}
-          <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={onOpenDonationModal}
-              className="py-1.5 px-3 text-[10px] font-bold text-white bg-brand-teal-500 rounded-full flex items-center gap-1 sm:hidden cursor-pointer"
-            >
-              <Heart className="h-3 w-3 fill-white" />
-              Donasi
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-1.5 rounded-lg text-gray-500 hover:text-brand-teal-500 hover:bg-gray-50 transition-colors cursor-pointer"
-              id="btn-sidebar-toggle"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
+          <a
+            href="/donasi-wakaf"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-700 to-teal-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-cyan-900/15 transition hover:-translate-y-0.5 hover:shadow-xl"
+          >
+            <Heart className="h-4 w-4 fill-white" />
+            Donasi Sekarang
+          </a>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="inline-flex items-center justify-center rounded-xl border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-50 lg:hidden"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
 
-      {/* Mobile drawer overlay */}
       {isOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white/98 backdrop-blur-md shadow-inner">
-          <div className="space-y-1 px-3 py-4">
-            {menuItems.map((item) => {
-              const isActive = 
-                activeView === item.id || 
-                (item.id === "about" && (activeView === "about" || activeView === "tentang-yayasan" || activeView === "/tentang-yayasan")) ||
-                (item.id === "units" && (activeView === "units" || activeView === "unit-pendidikan" || activeView === "/unit-pendidikan")) ||
-                (item.id === "contact" && (activeView === "contact" || activeView === "kontak" || activeView === "/kontak")) ||
-                (item.id === "donations" && (activeView === "donasi-wakaf" || activeView === "donations" || activeView.startsWith("donasi-wakaf"))) ||
-                (item.id === "foster" && (activeView === "foster" || activeView === "orang-tua-asuh" || activeView === "/orang-tua-asuh")) ||
-                (item.id === "progress" && (activeView === "progress" || activeView === "progress-pembangunan" || activeView === "/progress-pembangunan")) ||
-                (item.id === "gallery" && (activeView === "gallery" || activeView === "galeri" || activeView === "/galeri"));
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleMenuClick(item.id)}
-                  className={`block w-full text-left px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                    isActive
-                      ? "text-brand-teal-500 bg-brand-teal-50"
-                      : "text-gray-600 hover:text-brand-teal-500 hover:bg-gray-50"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-            <button
-              onClick={() => handleMenuClick("admin")}
-              className={`flex items-center gap-2 w-full text-left px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                activeView === "admin"
-                  ? "text-brand-teal-500 bg-brand-teal-50"
-                  : "text-gray-500 hover:text-brand-teal-500 hover:bg-gray-50"
-              }`}
+        <div className="border-t border-slate-100 bg-white px-4 py-4 shadow-lg lg:hidden">
+          <nav className="flex flex-col gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-cyan-50 hover:text-cyan-700"
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <a
+              href="/admin"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
             >
               <Settings className="h-4 w-4" />
-              Admin Dashboard (Dummy)
-            </button>
-            <div className="pt-4 px-4">
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  onOpenDonationModal();
-                }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-extrabold text-white rounded-full bg-brand-teal-500 hover:bg-brand-teal-600 transition-all text-center"
-              >
-                <Heart className="h-3.5 w-3.5 fill-white" />
-                Donasi Sekarang
-              </button>
-            </div>
-          </div>
+              Admin
+            </a>
+
+            <a
+              href="/donasi-wakaf"
+              onClick={() => setIsOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-700 to-teal-600 px-5 py-3 text-sm font-bold text-white shadow-lg"
+            >
+              <Heart className="h-4 w-4 fill-white" />
+              Donasi Sekarang
+            </a>
+          </nav>
         </div>
       )}
     </header>
