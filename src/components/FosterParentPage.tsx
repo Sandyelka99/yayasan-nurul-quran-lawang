@@ -125,6 +125,7 @@ export default function FosterParentPage({ onNavigate }: FosterParentPageProps) 
   };
 
   const handleOpenSponsorship = (child: ChildCandidate) => {
+    alert("Fitur orang tua asuh akan aktif setelah integrasi backend.");
     setSelectedChild(child);
     setSelectedPack("Paket Sinergi Khusus: " + child.name);
     setSelectedPrice(child.targetPrice);
@@ -134,6 +135,7 @@ export default function FosterParentPage({ onNavigate }: FosterParentPageProps) 
   };
 
   const handleOpenPackSponsorship = (packName: string, price: number) => {
+    alert("Fitur orang tua asuh akan aktif setelah integrasi backend.");
     setSelectedChild(null);
     setSelectedPack(packName);
     setSelectedPrice(price);

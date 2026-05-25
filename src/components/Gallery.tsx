@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 export default function Gallery() {
   const [filter, setFilter] = useState("semua");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<any | null>(null);
 
   const categories = [
     { id: "semua", label: "Semua Galeri" },
@@ -72,7 +72,7 @@ export default function Gallery() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35 }}
                 key={item.id}
-                onClick={() => setSelectedImage(item.imageUrl)}
+                onClick={() => setSelectedItem(item)}
                 className="group relative h-72 rounded-2xl overflow-hidden bg-brand-dark-900 border border-gray-150 shadow-sm hover:shadow-xl transition-all cursor-pointer"
               >
                 {/* Foreground Overlay */}
@@ -111,26 +111,56 @@ export default function Gallery() {
         </div>
 
         {/* Big Preview Modal Pop-up */}
-        {selectedImage && (
+        {selectedItem && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div 
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedItem(null)}
               className="fixed inset-0 bg-brand-dark-950/80 backdrop-blur-sm cursor-zoom-out"
             />
-            <div className="relative z-10 max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl flex items-center justify-center">
-              <button 
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-20 rounded-full bg-black/50 hover:bg-black/75 p-2 text-white border border-white/10 transition-colors"
-                id="btn-close-gallery-preview"
-              >
-                ✕
-              </button>
-              <img 
-                src={selectedImage} 
-                alt="Selected preview" 
-                referrerPolicy="no-referrer"
-                className="max-h-[85vh] object-contain" 
-              />
+            <div className="relative z-10 max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-150 grid grid-cols-1 lg:grid-cols-12 text-left">
+              {/* Image side */}
+              <div className="lg:col-span-7 bg-black flex items-center justify-center aspect-[4/3] lg:aspect-auto">
+                <img 
+                  src={selectedItem.imageUrl} 
+                  alt={selectedItem.title} 
+                  referrerPolicy="no-referrer"
+                  className="max-h-[70vh] w-full object-contain" 
+                />
+              </div>
+
+              {/* Info text metadata side */}
+              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-white text-brand-dark-900">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="inline-block text-[10px] font-extrabold text-brand-teal-600 bg-brand-teal-50 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                      {selectedItem.category}
+                    </span>
+                    <button 
+                      onClick={() => setSelectedItem(null)}
+                      className="p-1.5 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-900 transition-colors cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-extrabold text-[#0c2633] leading-tight">
+                    {selectedItem.title}
+                  </h3>
+
+                  <p className="text-xs text-gray-500 font-semibold leading-relaxed pt-2 border-t border-gray-100">
+                    {selectedItem.description}
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-gray-100 flex gap-3 mt-6">
+                  <button
+                    onClick={() => setSelectedItem(null)}
+                    className="w-full py-2.5 text-center text-xs font-extrabold text-white bg-[#0c2633] hover:bg-brand-dark-900 rounded-xl transition-all cursor-pointer"
+                  >
+                    Tutup Detail
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}

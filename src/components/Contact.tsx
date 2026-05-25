@@ -24,6 +24,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
+    alert(`Terima kasih ${name}, pesan Anda telah dikirim dan simulasinya akan kami arahkan langsung ke WhatsApp atau terekam di dashboard admin.`);
     setSubmitted(true);
     setName("");
     setEmail("");

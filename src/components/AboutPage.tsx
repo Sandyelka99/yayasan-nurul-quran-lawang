@@ -678,6 +678,7 @@ export default function AboutPage({ onNavigate }: AboutPageProps) {
               <div className="pt-6 border-t border-gray-50 flex gap-3">
                 <button
                   onClick={() => {
+                    alert("Fitur orang tua asuh akan aktif setelah integrasi backend.");
                     setSelectedTeacher(null);
                     onNavigate("contact");
                   }}

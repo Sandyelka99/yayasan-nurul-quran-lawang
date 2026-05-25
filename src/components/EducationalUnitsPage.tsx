@@ -33,10 +33,24 @@ import { motion, AnimatePresence } from "motion/react";
 
 interface EducationalUnitsPageProps {
   onNavigate: (viewId: string) => void;
+  activeSubUnit?: string;
 }
 
-export default function EducationalUnitsPage({ onNavigate }: EducationalUnitsPageProps) {
+export default function EducationalUnitsPage({ onNavigate, activeSubUnit }: EducationalUnitsPageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  React.useEffect(() => {
+    const targetId = activeSubUnit || (window.location.hash ? window.location.hash.substring(1) : "");
+    if (targetId) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [activeSubUnit]);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -134,7 +148,7 @@ export default function EducationalUnitsPage({ onNavigate }: EducationalUnitsPag
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <button
-                onClick={() => scrollToSection("units-details-section")}
+                onClick={() => scrollToSection("rumah-belajar")}
                 className="py-3 px-8 text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-brand-teal-500 to-brand-teal-600 hover:from-brand-teal-600 hover:to-brand-teal-700 transition-all rounded-full cursor-pointer shadow-lg shadow-brand-teal-500/25 text-centerInside"
               >
                 Lihat Program Pendidikan
@@ -201,7 +215,7 @@ export default function EducationalUnitsPage({ onNavigate }: EducationalUnitsPag
 
 
       {/* SECTION 3: UNIT 1 DETAIL - RUMAH BELAJAR */}
-      <section id="units-details-section" className="py-20 bg-brand-dark-50/40 border-t border-b border-gray-150">
+      <section id="rumah-belajar" className="py-20 bg-brand-dark-50/40 border-t border-b border-gray-150">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -308,7 +322,7 @@ export default function EducationalUnitsPage({ onNavigate }: EducationalUnitsPag
 
 
       {/* SECTION 4: UNIT 2 DETAIL - RUMAH TAHFIZZ */}
-      <section className="py-20 bg-white">
+      <section id="rumah-tahfizz" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -394,7 +408,7 @@ export default function EducationalUnitsPage({ onNavigate }: EducationalUnitsPag
 
 
       {/* SECTION 5: UNIT 3 DETAIL - RUTABA */}
-      <section className="py-20 bg-brand-dark-50/40 border-t border-b border-gray-150">
+      <section id="rutaba" className="py-20 bg-brand-dark-50/40 border-t border-b border-gray-150">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

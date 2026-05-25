@@ -43,12 +43,11 @@ export default function GalleryPage({ onNavigate }: GalleryPageProps) {
   const filters = [
     "Semua",
     "Pendidikan",
-    "Tahfidz",
-    "RUTABA",
-    "Sarana Belajar",
+    "Dakwah",
+    "Sosial",
+    "Wakaf",
     "Pembangunan",
-    "Sosial Dakwah",
-    "Wakaf"
+    "Kegiatan Santri"
   ];
 
   const galleryItems: GalleryItem[] = [
@@ -63,25 +62,25 @@ export default function GalleryPage({ onNavigate }: GalleryPageProps) {
     {
       id: 2,
       title: "Mushaf untuk Program Tahfidz",
-      category: "Tahfidz",
+      category: "Pendidikan",
       date: "10 Mei 2026",
-      description: "Pengadaan mushaf Al-Qur’an terstandar rasm utsmani untuk mendukung kelancaran hafalan para santri.",
+      description: "Pengadaan mushaf Al-Qur’an terstandar rasm utsmani untuk mendukung kelancaran hafalan dan bimbingan para santri di rumah tahfizz.",
       imageUrl: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 3,
-      title: "Ruang RUTABA",
-      category: "RUTABA",
+      title: "Ruang RUTABA Usia Dini",
+      category: "Pendidikan",
       date: "8 Mei 2026",
-      description: "Ruang belajar usia dini (Rumah Tahfidz Balita) dengan suasana yang lembut, aman, hangat, dan edukatif.",
+      description: "Ruang belajar Rumah Tahfizz Balita (RUTABA) dengan suasana pengajaran interaktif, lembut, aman, hangat, dan edukatif.",
       imageUrl: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 4,
       title: "Rak Kitab dan Buku Pembelajaran",
-      category: "Sarana Belajar",
+      category: "Pendidikan",
       date: "5 Mei 2026",
-      description: "Sarana kokoh untuk merapikan penyimpanan kitab-kitab syar'i dan buku modul pembelajaran ustadz.",
+      description: "Sponsori sarana kokoh untuk merapikan penyimpanan kitab-kitab syar'i serta buku pedoman modul belajar mengajar asatidzah.",
       imageUrl: "https://images.unsplash.com/photo-1512632511790-760901e47f5b?auto=format&fit=crop&q=80&w=800"
     },
     {
@@ -97,7 +96,7 @@ export default function GalleryPage({ onNavigate }: GalleryPageProps) {
       title: "Material Bangunan Tahap Dua",
       category: "Pembangunan",
       date: "1 Mei 2026",
-      description: "Pengadaan bata merah bakar, pasir cor gunung, dan tumpukan besi ulir baja galvanis berstandar SNI.",
+      description: "Pengadaan bata merah bakar, pasir cor gunung, dan tumpukan besi ulir baja galvanis berstandar SNI untuk prasarana fisik.",
       imageUrl: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800"
     },
     {
@@ -105,48 +104,64 @@ export default function GalleryPage({ onNavigate }: GalleryPageProps) {
       title: "Program Wakaf Al-Qur'an Tikrar",
       category: "Wakaf",
       date: "28 April 2026",
-      description: "Sinergi penyaluran mushaf wakaf dari para muhsinin langsung ke asrama demi keberkahan pahala jariyah.",
+      description: "Sinergi penyaluran mushaf wakaf Al-Qur'an gratis dari para muhsinin langsung ke asrama demi keberkahan pahala jariyah.",
       imageUrl: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 8,
       title: "Meja Belajar Kayu Santri",
-      category: "Sarana Belajar",
+      category: "Pendidikan",
       date: "25 April 2026",
-      description: "Rehal menulis dan meja lipat kayu jati belanda yang halus permukaannya untuk kenyamanan belajar.",
+      description: "Fasilitas meja rehal menulis dan lipat kayu jati belanda yang halus permukaannya untuk kenyamanan belajar mengajar.",
       imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 9,
-      title: "Ruang Kelas dan Halaqah Tahfidz",
-      category: "Tahfidz",
+      title: "Aktivitas Murajaah Mandiri Santri",
+      category: "Kegiatan Santri",
       date: "22 April 2026",
-      description: "Suasana tenang ruang serbaguna asrama untuk setoran hafalan mandiri santri di pagi hari.",
+      description: "Suasana tenang santri di pagi hari kala mengulang hafalan lama secara khusyuk dan tertib di serambi asrama.",
       imageUrl: "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 10,
-      title: "Kegiatan Sosial Yayasan",
-      category: "Sosial Dakwah",
+      title: "Penyaluran Paket Sembako Dhuafa",
+      category: "Sosial",
       date: "18 April 2026",
-      description: "Penyediaan paket sembako bahan pangan pokok bulanan bagi keluarga dhuafa di lingkar Lawang.",
+      description: "Penyediaan paket sembako bahan pangan pokok bulanan bagi keluarga dhuafa di lingkar Lawang sebagai bakti sosial.",
       imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 11,
-      title: "Area Lingkungan Pesantren",
-      category: "Pendidikan",
+      title: "Kajian Rutin Sabtu Sore",
+      category: "Dakwah",
       date: "15 April 2026",
-      description: "Lingkungan pesantren asri berhawa pegunungan sejuk mendukung keberkahan santri dalam belajar.",
-      imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800"
+      description: "Pelaksanaan kajian rutinitas fiqih dan sunnah di masjid utama yang dihadiri secara antusiastis oleh umum.",
+      imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 12,
-      title: "Dokumentasi Laporan Program",
-      category: "Wakaf",
+      title: "Makan Bersama Yatim Dhuafa",
+      category: "Kegiatan Santri",
+      date: "12 April 2026",
+      description: "Momen kebersamaan santri asrama dhuafa menikmati santapan penuh gizi berimbang secara kekeluargaan.",
+      imageUrl: "https://images.unsplash.com/photo-1534080391025-a17cdeb7c374?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      id: 13,
+      title: "Kanal Media Dakwah Digital",
+      category: "Dakwah",
       date: "10 April 2026",
-      description: "Pengarsipan berkas pertanggungjawaban penyaluran dana sosial masyarakat secara terbuka dan legalitas jelas.",
-      imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800"
+      description: "Pengambilan video ceramah, kompilasi pelajaran adab balita, dan penyebaran konten syiar islamiyah gratis ke seantero umat.",
+      imageUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      id: 14,
+      title: "Wakaf Sarana Sumur Air Bersih",
+      category: "Wakaf",
+      date: "05 April 2026",
+      description: "Pembangunan sumur bor air tanah bersumber dana wakaf guna mencukupi wudhu harian para penghafal Al-Qur'an.",
+      imageUrl: "https://images.unsplash.com/photo-1548345680-f5475ea5df84?auto=format&fit=crop&q=80&w=800"
     }
   ];
 

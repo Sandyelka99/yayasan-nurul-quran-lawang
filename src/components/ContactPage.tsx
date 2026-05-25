@@ -96,6 +96,7 @@ export default function ContactPage() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    alert(`Terima kasih ${formData.fullName}, pesan Anda telah dikirim dan simulasinya akan kami arahkan langsung ke WhatsApp atau terekam di dashboard admin.`);
     setSubmitted(true);
     setFormData({
       fullName: "",
