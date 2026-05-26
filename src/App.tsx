@@ -26,6 +26,7 @@ import AboutPage from "./components/AboutPage";
 import EducationalUnitsPage from "./components/EducationalUnitsPage";
 import ContactPage from "./components/ContactPage";
 import FloatingWhatsAppCTA from "./components/FloatingWhatsAppCTA";
+import SocialLinks from "./components/SocialLinks";
 import DakwahPage from "./components/DakwahPage";
 
 import { CAMPAIGNS, STATISTICS, TESTIMONIALS } from "./data/mockData";

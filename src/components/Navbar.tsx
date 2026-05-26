@@ -438,7 +438,6 @@ export default function Navbar({
           </div>
         </div>
       )}
-      <SocialLinks variant="floating" />
     </header>
   );
 }

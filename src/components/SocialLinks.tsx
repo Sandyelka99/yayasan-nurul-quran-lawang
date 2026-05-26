@@ -5,31 +5,25 @@ type SocialLinksProps = {
   variant?: "mobile" | "floating" | "footer";
 };
 
-const socialLinks = {
-  instagram: "https://www.instagram.com/",
-  tiktok: "https://www.tiktok.com/",
-  youtube: "https://www.youtube.com/",
-};
-
 const links = [
   {
     label: "Instagram",
-    href: socialLinks.instagram,
+    href: "https://www.instagram.com/",
     icon: Instagram,
   },
   {
     label: "TikTok",
-    href: socialLinks.tiktok,
+    href: "https://www.tiktok.com/",
     icon: Music2,
   },
   {
     label: "YouTube",
-    href: socialLinks.youtube,
+    href: "https://www.youtube.com/",
     icon: Youtube,
   },
 ];
 
-function SocialIconButton({
+function SocialButton({
   label,
   href,
   icon: Icon,
@@ -63,7 +57,7 @@ export default function SocialLinks({ variant = "footer" }: SocialLinksProps) {
         {open && (
           <div className="mb-1 flex flex-col gap-2 rounded-2xl border border-slate-100 bg-white p-3 shadow-2xl">
             {links.map((item) => (
-              <SocialIconButton
+              <SocialButton
                 key={item.label}
                 label={item.label}
                 href={item.href}
@@ -92,9 +86,10 @@ export default function SocialLinks({ variant = "footer" }: SocialLinksProps) {
         <p className="mb-3 text-xs font-extrabold uppercase tracking-wide text-slate-500">
           Ikuti Kami
         </p>
+
         <div className="flex items-center justify-center gap-2">
           {links.map((item) => (
-            <SocialIconButton
+            <SocialButton
               key={item.label}
               label={item.label}
               href={item.href}
@@ -111,9 +106,10 @@ export default function SocialLinks({ variant = "footer" }: SocialLinksProps) {
       <p className="mb-3 text-sm font-extrabold text-slate-700">
         Ikuti Kanal Resmi Yayasan
       </p>
+
       <div className="flex items-center justify-center gap-2">
         {links.map((item) => (
-          <SocialIconButton
+          <SocialButton
             key={item.label}
             label={item.label}
             href={item.href}

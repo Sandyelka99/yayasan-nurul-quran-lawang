@@ -1,58 +1,100 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+import { useState } from "react";
+import {
+  Instagram,
+  MessageCircle,
+  Music2,
+  Share2,
+  X,
+  Youtube,
+} from "lucide-react";
 
-import React from "react";
-import { MessageCircle } from "lucide-react";
-import { motion } from "motion/react";
+const whatsappNumber = "6281234012041";
 
-interface FloatingWhatsAppProps {
-  activeView: string;
-}
+const socialLinks = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/",
+    icon: Instagram,
+    iconClass: "text-pink-600",
+    buttonClass:
+      "border-pink-200 bg-pink-50 text-pink-700 hover:bg-pink-100 hover:border-pink-300",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/",
+    icon: Music2,
+    iconClass: "text-black",
+    buttonClass:
+      "border-slate-300 bg-slate-50 text-slate-800 hover:bg-slate-100 hover:border-slate-400",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/",
+    icon: Youtube,
+    iconClass: "text-red-600",
+    buttonClass:
+      "border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300",
+  },
+];
 
-export default function FloatingWhatsAppCTA({ activeView }: FloatingWhatsAppProps) {
-  // Hide Floating WhatsApp CTA on the admin dashboard view so it doesn't obstruct administrative charts
-  if (activeView === "admin") {
-    return null;
-  }
+export default function FloatingWhatsAppCTA() {
+  const [openSocial, setOpenSocial] = useState(false);
 
-  const handleFloatingClick = () => {
-    const textQuery = encodeURIComponent("Assalamu’alaikum, saya ingin bertanya tentang Yayasan Nurul Quran Lawang Malang.");
-    window.open(`https://wa.me/6281200000000?text=${textQuery}`, "_blank");
+  const openWhatsApp = () => {
+    const message =
+      "Assalamu'alaikum, saya ingin menghubungi admin Yayasan Nurul Quran.";
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
-      <motion.button
-        onClick={handleFloatingClick}
-        animate={{ 
-          scale: [1, 1.05, 1],
-          boxShadow: [
-            "0 10px 25px -5px rgba(16, 185, 129, 0.3)", 
-            "0 15px 30px -5px rgba(16, 185, 129, 0.5)", 
-            "0 10px 25px -5px rgba(16, 185, 129, 0.3)"
-          ]
-        }}
-        transition={{ 
-          duration: 3, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
-        }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        id="btn-floating-wa"
-        className="flex items-center gap-2 px-4.5 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-xs shadow-xl cursor-pointer transition-all duration-300 border border-emerald-400/20"
+    <div className="fixed bottom-6 right-5 z-[9999] flex flex-col items-end gap-3">
+      {openSocial && (
+        <div className="flex flex-col gap-2 rounded-2xl border border-slate-100 bg-white p-3 shadow-2xl">
+          {socialLinks.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 ${item.buttonClass}`}
+              >
+                <Icon className={`h-4 w-4 ${item.iconClass}`} />
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setOpenSocial((prev) => !prev)}
+        className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-200 bg-gradient-to-r from-cyan-700 via-teal-600 to-emerald-600 px-5 py-3 text-sm font-extrabold text-white shadow-2xl shadow-cyan-950/25 transition hover:-translate-y-0.5 hover:shadow-cyan-950/35"
       >
-        <span className="relative flex h-3 w-3 items-center justify-center">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-          <MessageCircle className="h-3.5 w-3.5 relative inline-flex text-white fill-current" />
-        </span>
-        
-        {/* Responsive layout: Text on desk, compact indicator on mobile */}
-        <span className="hidden sm:inline">Hubungi Admin</span>
-        <span className="inline sm:hidden">WA</span>
-      </motion.button>
+        {openSocial ? (
+          <X className="h-4 w-4" />
+        ) : (
+          <Share2 className="h-4 w-4" />
+        )}
+        Ikuti Kami
+      </button>
+
+      <button
+        type="button"
+        onClick={openWhatsApp}
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4 text-sm font-extrabold text-white shadow-2xl shadow-emerald-950/20 transition hover:-translate-y-0.5 hover:shadow-emerald-950/30"
+      >
+        <MessageCircle className="h-4 w-4 fill-white/20" />
+        Hubungi Admin
+      </button>
     </div>
   );
 }
