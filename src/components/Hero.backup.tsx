@@ -31,7 +31,7 @@ export default function Hero({ onNavigate, onDonateClick }: HeroProps) {
       <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#f7fafb] to-transparent" />
 
       {/* Main Container */}
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
         
         {/* Humble Bismillah / Quran Section Label */}
         <motion.div
@@ -49,7 +49,7 @@ export default function Hero({ onNavigate, onDonateClick }: HeroProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.08]"
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight"
         >
           Membangun <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal-500 to-teal-300">Generasi Qurani</span>,<br className="hidden sm:inline" />
           Menebar <span className="border-b-4 border-brand-gold-500/80">Manfaat</span> untuk Umat
@@ -70,7 +70,7 @@ export default function Hero({ onNavigate, onDonateClick }: HeroProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0"
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0"
         >
           {/* 1. Donasi Sekarang */}
           <button
