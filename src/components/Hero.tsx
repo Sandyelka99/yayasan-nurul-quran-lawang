@@ -92,14 +92,14 @@ export default function Hero({ onNavigate, onDonateClick }: HeroProps) {
             Lihat Program Kami
           </button>
 
-          {/* 3. Lihat Laporan & Transparansi */}
+          {/* 3. Lihat Laporan Transparansi */}
           <button
             onClick={() => onNavigate("progress")}
             id="btn-hero-see-reports"
             className="w-full sm:w-auto flex items-center justify-center gap-2 py-3 px-6 text-xs sm:text-sm font-extrabold text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all cursor-pointer"
           >
             <FileCheck className="h-4 w-4 text-teal-300" />
-            Lihat Laporan & Transparansi
+            Lihat Laporan Transparansi
           </button>
         </motion.div>
 

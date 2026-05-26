@@ -359,7 +359,7 @@ export default function App() {
               onNavigate={handleNavigate}
             />
 
-            {/* 6. Laporan & Transparansi updates preview */}
+            {/* 6. Laporan Transparansi updates preview */}
             <HomeReportsPreview onNavigate={handleNavigate} />
 
             {/* 7. Dakwah Digital preview */}
