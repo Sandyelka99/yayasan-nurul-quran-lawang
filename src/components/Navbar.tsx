@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import SocialLinks from "./SocialLinks";
 import {
   BookOpen,
   ChevronDown,
@@ -424,6 +425,8 @@ export default function Navbar({
               );
             })}
 
+            <SocialLinks variant="mobile" />
+
             <button
               type="button"
               onClick={handleDonationClick}
@@ -435,6 +438,7 @@ export default function Navbar({
           </div>
         </div>
       )}
+      <SocialLinks variant="floating" />
     </header>
   );
 }
